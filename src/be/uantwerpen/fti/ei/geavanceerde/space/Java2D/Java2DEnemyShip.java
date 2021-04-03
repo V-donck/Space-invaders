@@ -19,6 +19,6 @@ public class Java2DEnemyShip extends EnemyShip{
 
     public void visualise(){
         Graphics2D g2d = F.getG2d();
-        g2d.drawImage(F.getEnemyShipIm(),this.getMovementComponent().getxCoord(),this.getMovementComponent().getyCoord(),null);
+        g2d.drawImage(F.getEnemyShipIm(),(int) (this.getMovementComponent().getxCoord()*F.getFactorx()),(int) (this.getMovementComponent().getyCoord()*F.getFactory()),null);
     }
 }

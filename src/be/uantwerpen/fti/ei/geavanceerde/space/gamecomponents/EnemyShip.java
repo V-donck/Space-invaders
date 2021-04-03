@@ -6,7 +6,7 @@ abstract public class EnemyShip extends EnemyEntity{
 
     public EnemyShip() {
         this.HP = 50;
-        this.setMovementComponent(0,200,0,0);
+        this.setMovementComponent(0,0,0,0);
     }
 
     public EnemyShip(AbstractFactory F, int HP, int x, int y, int dx, int dy) {

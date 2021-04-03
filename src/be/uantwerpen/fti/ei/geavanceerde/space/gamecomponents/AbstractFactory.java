@@ -14,8 +14,16 @@ abstract public class AbstractFactory {
     public abstract int getPlayershipWidth();
     public abstract int getPlayershipHeigth();
 
+    public abstract int getGameWidth();
+    public abstract int getGameHeight();
+
+
+    public abstract double getFactorx();
+    public abstract double getFactory();
+
+
     public abstract JFrame getFrame(); //-> is van Java2Dfactory
-    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight);
+    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight);
     public abstract void render();
 
 }

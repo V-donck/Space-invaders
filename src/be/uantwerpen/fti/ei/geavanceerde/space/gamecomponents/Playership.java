@@ -9,7 +9,7 @@ abstract public class Playership extends PlayerEntity {
     public Playership(AbstractFactory F) {
         this.HP = 100;
         this.F = F;
-        this.setMovementComponent(500/2,1000/2-150,0,0);
+        this.setMovementComponent(F.getGameWidth()/2,F.getGameHeight()-300,0,0);/// hier nog 300 aanpassen
         this.setWidth(F.getPlayershipWidth());
         this.setHeight(F.getPlayershipHeigth());
     }
