@@ -5,10 +5,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 abstract public class AbstractFactory {
-    public abstract Playership createPlayership();
+    public abstract Playership createPlayership(int playershipHeight);
     public abstract PlayerBullet createPlayerBullet(int dammage, int x, int y, int dx, int dy);
     public abstract EnemyShip createEnemyship();
     public abstract EnemyShip createEnemyship(int HP, int x, int y, int dx, int dy);
+    public abstract EnemyBullet createEnemyBullet(int dammage, int x, int y, int dx, int dy);
 
 
     public abstract int getPlayershipWidth();
@@ -23,7 +24,8 @@ abstract public class AbstractFactory {
 
 
     public abstract JFrame getFrame(); //-> is van Java2Dfactory
-    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight);
+    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight,      int score);
     public abstract void render();
+    public abstract void updatescore(int score);
 
 }

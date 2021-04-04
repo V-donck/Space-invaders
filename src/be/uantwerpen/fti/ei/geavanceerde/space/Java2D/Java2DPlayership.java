@@ -11,8 +11,8 @@ import java.io.File;
 public class Java2DPlayership extends Playership{
     private Java2DFactory F;
 
-    public Java2DPlayership(Java2DFactory F) {
-        super(F);
+    public Java2DPlayership(Java2DFactory F, int PlayershipHeight) {
+        super(F,PlayershipHeight);
         this.F = F;
 
 /*

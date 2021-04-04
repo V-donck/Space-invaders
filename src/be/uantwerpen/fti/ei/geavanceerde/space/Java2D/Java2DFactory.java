@@ -35,6 +35,7 @@ public class Java2DFactory extends AbstractFactory {
     public BufferedImage PlayerShipIm;
     public BufferedImage EnemyShipIm;
     public BufferedImage PlayerBulletIm;
+    public BufferedImage EnemyBulletIm;
 
     private Graphics2D g2d;
 
@@ -72,7 +73,8 @@ public class Java2DFactory extends AbstractFactory {
 
     }
 
-    public void setGameDimensions(int GameWidth,int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int GameBulletWidth, int GameBulletHeight, int GameEnemyshipWidth, int GameEnemyshipHeight){
+    public void setGameDimensions(int GameWidth,int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int GameBulletWidth, int GameBulletHeight, int GameEnemyshipWidth, int GameEnemyshipHeight,        int score){
+        statusbar.setText(String.valueOf(score));
         this.GameWidth = GameWidth;
         this.GameHeight = GameHeight;
         factorx = ((double)ScreenWidth/GameWidth); // game / screen
@@ -81,8 +83,8 @@ public class Java2DFactory extends AbstractFactory {
         PlayershipWidth = (int) (GamePlayershipWidth*factorx);
         PlayershipHeigth = (int) (GamePlayershipHeight*factory);
 
-        int PlayerBulletWidth =  (int) (GameBulletWidth*factorx);
-        int PlayerBulletHeight = (int)(GameBulletHeight* factory);
+        int BulletWidth =  (int) (GameBulletWidth*factorx);
+        int BulletHeight = (int)(GameBulletHeight* factory);
 
 
 
@@ -95,7 +97,8 @@ public class Java2DFactory extends AbstractFactory {
             backgroundIm = resizeImage(backgroundIm, frame.getWidth(), frame.getHeight());
             PlayerShipIm = resizeImage(PlayerShipIm, PlayershipWidth, PlayershipHeigth);
             EnemyShipIm = resizeImage(EnemyShipIm, (int)(GameEnemyshipWidth * factorx), (int)(GameEnemyshipHeight*factory));
-            PlayerBulletIm = resizeImage(PlayerBulletIm, PlayerBulletWidth, PlayerBulletHeight);
+            PlayerBulletIm = resizeImage(PlayerBulletIm, BulletWidth, BulletHeight);
+            EnemyBulletIm = resizeImage(EnemyBulletIm, BulletWidth, BulletHeight);
         } catch(Exception e) {
             System.out.println(e.getStackTrace());
         }
@@ -114,6 +117,7 @@ public class Java2DFactory extends AbstractFactory {
             PlayerShipIm = ImageIO.read(new File("src/resource/playership.png"));
             EnemyShipIm =  ImageIO.read(new File("src/resource/enemyship3.png"));
             PlayerBulletIm = ImageIO.read(new File("src/resource/playerbullet2.png"));
+            EnemyBulletIm = ImageIO.read(new File("src/resource/enemybullet3.png"));
         } catch (IOException e) {
             System.out.println("Unable to load images!");
         }
@@ -155,14 +159,17 @@ public class Java2DFactory extends AbstractFactory {
         return PlayerBulletIm;
     }
 
+    public BufferedImage getEnemyBulletIm(){
+        return EnemyBulletIm;
+    }
 
 
 
 
 
-    public Playership createPlayership(){
-        System.out.println(frame);
-        return new Java2DPlayership(this);
+
+    public Playership createPlayership(int playershipheight){
+        return new Java2DPlayership(this,playershipheight);
     }
     public Java2DPlayerBullet createPlayerBullet(int dammage, int x, int y, int dx, int dy){
         return new Java2DPlayerBullet(this, dammage, x,y,dx,dy);
@@ -174,6 +181,10 @@ public class Java2DFactory extends AbstractFactory {
 
     public EnemyShip createEnemyship(int HP, int x, int y, int dx, int dy) {
         return new Java2DEnemyShip(this, HP,x, y, dx, dy);
+    }
+
+    public Java2DEnemyBullet createEnemyBullet(int dammage, int x, int y, int dx, int dy){
+        return new Java2DEnemyBullet(this,dammage,x,y,dx,dy);
     }
 
     public JFrame getFrame(){
@@ -207,5 +218,9 @@ public class Java2DFactory extends AbstractFactory {
     }
     public double getFactory(){
         return factory;
+    }
+
+    public void updatescore(int score){
+        statusbar.setText(String.valueOf(score));
     }
 }
