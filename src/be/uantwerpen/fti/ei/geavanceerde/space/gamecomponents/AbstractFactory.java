@@ -10,10 +10,13 @@ abstract public class AbstractFactory {
     public abstract EnemyShip createEnemyship();
     public abstract EnemyShip createEnemyship(int HP, int x, int y, int dx, int dy);
     public abstract EnemyBullet createEnemyBullet(int dammage, int x, int y, int dx, int dy);
+    public abstract Friendly createFriendly();
+    public abstract Bulletx2 createBulletx2();
 
 
     public abstract int getPlayershipWidth();
     public abstract int getPlayershipHeigth();
+    public abstract int getEnemyshipWidth();
 
     public abstract int getGameWidth();
     public abstract int getGameHeight();
@@ -24,7 +27,7 @@ abstract public class AbstractFactory {
 
 
     public abstract JFrame getFrame(); //-> is van Java2Dfactory
-    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight,      int score);
+    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight, int boxWidth, int boxHeight,     int score);
     public abstract void render();
     public abstract void updatescore(int score);
 
