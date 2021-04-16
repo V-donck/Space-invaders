@@ -40,6 +40,7 @@ public class Java2DFactory extends AbstractFactory {
     public BufferedImage EnemyBulletIm;
     public BufferedImage FriendlyIm;
     public BufferedImage Bulletx2Im;
+    public BufferedImage Bulletx3Im;
 
     private Graphics2D g2d;
 
@@ -107,6 +108,7 @@ public class Java2DFactory extends AbstractFactory {
             EnemyBulletIm = resizeImage(EnemyBulletIm, BulletWidth, BulletHeight);
             FriendlyIm = resizeImage(FriendlyIm, (int)(GameEnemyshipWidth * factorx), (int)(GameEnemyshipHeight*factory));
             Bulletx2Im = resizeImage(Bulletx2Im, (int)(boxWidth * factorx), (int)(boxHeight*factory));
+            Bulletx3Im = resizeImage(Bulletx3Im, (int)(boxWidth * factorx), (int)(boxHeight*factory));
             System.out.println("breedte " + GameBulletWidth+" * "+factorx);
             System.out.println("bulletbreedte: " + BulletWidth);
             System.out.println("lengtebullet"+ BulletHeight);
@@ -134,6 +136,7 @@ public class Java2DFactory extends AbstractFactory {
             EnemyBulletIm = ImageIO.read(new File("src/resource/enemybullet3.png"));
             FriendlyIm = ImageIO.read(new File("src/resource/friendly.png"));
             Bulletx2Im = ImageIO.read(new File("src/resource/bulletx2.png"));
+            Bulletx3Im = ImageIO.read(new File("src/resource/bulletx3.png"));
         } catch (IOException e) {
             System.out.println("Unable to load images!");
         }
@@ -187,6 +190,9 @@ public class Java2DFactory extends AbstractFactory {
     public BufferedImage getBulletx2Im(){
         return Bulletx2Im;
     }
+    public BufferedImage getBulletx3Im(){
+        return Bulletx3Im;
+    }
 
 
 
@@ -216,8 +222,8 @@ public class Java2DFactory extends AbstractFactory {
         return new Java2DFriendly(this);
     }
 
-    public Java2DBulletx2 createBulletx2(){
-        return new Java2DBulletx2(this);
+    public Java2DBulletx createBulletx(int number){
+        return new Java2DBulletx(this,number);
     }
 
     public JFrame getFrame(){

@@ -11,7 +11,7 @@ abstract public class AbstractFactory {
     public abstract EnemyShip createEnemyship(int HP, int x, int y, int dx, int dy);
     public abstract EnemyBullet createEnemyBullet(int dammage, int x, int y, int dx, int dy);
     public abstract Friendly createFriendly();
-    public abstract Bulletx2 createBulletx2();
+    public abstract Bulletx createBulletx(int number);
 
 
     public abstract int getPlayershipWidth();
@@ -30,5 +30,6 @@ abstract public class AbstractFactory {
     public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight, int boxWidth, int boxHeight,     int score);
     public abstract void render();
     public abstract void updatescore(int score);
+
 
 }

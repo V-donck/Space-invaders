@@ -4,6 +4,8 @@ package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.io.*;
+
 
 public class Game {
     private int GameHeigth;
@@ -33,7 +35,7 @@ public class Game {
     private Friendly Fr;
     private EnemyShip FrEs;
     private boolean bonusactive = false;
-    private Bulletx2 Bx2;
+    private Bulletx Bx;
 
 
     public Game(AbstractFactory f) {
@@ -47,6 +49,17 @@ public class Game {
 
 
     public void start(){
+
+        try {
+            FileReader fr = new FileReader("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\Gameconfig.txt");
+
+            int i;
+            while ((i=fr.read()) != -1)
+                System.out.println((char) i);
+        } catch (IOException ex) {
+            Thread.currentThread().interrupt();
+        }
+
         GameWidth = 10000;
         GameHeigth = 10000;
 
@@ -87,7 +100,11 @@ public class Game {
         int randomvalue = (int) (Math.random()*300);
         int randomvalue2;
         int bullet2xtime = 0;
+        int bullet3xtime = 0;
+        ArrayList<EnemyShip> listremovees;
         System.out.println("randomvalue" + randomvalue);
+        boolean canshoot= true;
+        listremovees = new ArrayList<>();
         while (isRunning) {
 
             PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, 0);
@@ -125,23 +142,44 @@ public class Game {
                             break;
                         case UP:
                             System.out.println("up");
-                            if(bullet2xtime<=0) {
-                                PlayerBullet playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord() + PlayershipWidth / 2, PS.getMovementComponent().getyCoord(), 0, -50);
-                                PB.add(playbul);
-                                listmov.add(playbul.getMovementComponent());
-                                System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
-                            }
-                            else {
-                                bullet2xtime--;
-                                System.out.println("aantal dubbele kogels : "+ bullet2xtime);
-                                PlayerBullet playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -50);
-                                PB.add(playbul);
-                                listmov.add(playbul.getMovementComponent());
-                                System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
-                                playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -50);
-                                PB.add(playbul);
-                                listmov.add(playbul.getMovementComponent());
-                                System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                            if(canshoot) {
+                                canshoot = false;
+                                if(bullet3xtime > 0){
+                                    bullet3xtime--;
+                                    System.out.println("aantal tripele kogels : "+ bullet3xtime);
+                                    PlayerBullet playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PB.add(playbul);
+                                    listmov.add(playbul.getMovementComponent());
+                                    System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                                    playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PB.add(playbul);
+                                    listmov.add(playbul.getMovementComponent());
+                                    System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                                    playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord() + PlayershipWidth/2, PS.getMovementComponent().getyCoord()-BulletHeight/4, 0, -50);
+                                    PB.add(playbul);
+                                    listmov.add(playbul.getMovementComponent());
+                                    System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                                }
+                                else if (bullet2xtime> 0) {
+
+
+                                    bullet2xtime--;
+                                    System.out.println("aantal dubbele kogels : " + bullet2xtime);
+                                    PlayerBullet playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PB.add(playbul);
+                                    listmov.add(playbul.getMovementComponent());
+                                    System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                                    playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PB.add(playbul);
+                                    listmov.add(playbul.getMovementComponent());
+                                    System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                                }
+                                else {
+                                    PlayerBullet playbul = F.createPlayerBullet(10, PS.getMovementComponent().getxCoord() + PlayershipWidth / 2, PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PB.add(playbul);
+                                    listmov.add(playbul.getMovementComponent());
+                                    System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
+                                }
                             }
                             break;
 
@@ -170,7 +208,7 @@ public class Game {
                 }
                 if(teller == randomvalue & !bonusactive){ // bonus
                     System.out.println("teller = randomvalue");
-                    randomvalue2 = (int) (Math.random()*3);
+                    randomvalue2 = (int) (Math.random()*4);
                     System.out.println("randomvalue2: " + randomvalue2);
                     if(randomvalue2 ==1) { // friendly
                         bonusactive = true;
@@ -180,16 +218,26 @@ public class Game {
                     }
                     else if(randomvalue2 == 2){ // bulletx2
                         bonusactive = true;
-                        Bx2 = F.createBulletx2();
+                        Bx = F.createBulletx(2);
                         System.out.println("create bx2");
-                        listmov.add(Bx2.getMovementComponent());
+                        listmov.add(Bx.getMovementComponent());
                     }
+                    else if(randomvalue2 == 3){ // bulletx3
+                        bonusactive = true;
+                        Bx = F.createBulletx(3);
+                        System.out.println("create bx3");
+                        listmov.add(Bx.getMovementComponent());
+                    }
+
                 }
                 if(FrEs !=null & teller%200==0){
                     System.out.println("Frenemy: fire");
                     EnemyBullet eb = F.createEnemyBullet(20,FrEs.getMovementComponent().getxCoord()+EnemyshipWidth/2,FrEs.getMovementComponent().getyCoord()+EnemyshipHeight,0,7);
                     EB.add(eb);
                     listmov.add(eb.getMovementComponent());
+                }
+                if(teller%50==0){
+                    canshoot = true;
                 }
 
             }
@@ -291,12 +339,11 @@ oude collisions :
                         j--;
                         System.out.println(es.getHP());
                         if(es.getHP()<=0) {
-                            System.out.println("destroyed");
+                            System.out.println("ES destroyed");
                             score++;
                             F.updatescore(score);
-                            ES.remove(es);
-                            listmov.remove(es.getMovementComponent());
-                            i--;
+                            listremovees.add(es);
+                            System.out.println("added es to listremovees");
                         }
 
 
@@ -316,6 +363,13 @@ oude collisions :
 
 
             }
+            //remove es
+            for(EnemyShip es: listremovees){
+                System.out.println("enemyship in listremovees");
+                ES.remove(es);
+                listmov.remove(es.getMovementComponent());
+            }
+            listremovees.clear();
 
             // collisions EB
             for(i = 0;i<EB.size();i++){
@@ -433,24 +487,31 @@ oude collisions :
             }
 
             // collision Bx2
-            if(Bx2 != null) {
-                // Bx2 <-> PS
-                if ((((PS.getMovementComponent().getxCoord() + PlayershipWidth) > Bx2.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord() < (Bx2.getMovementComponent().getxCoord() + boxWidth))) &&   // x-coordinaten vallen samen
-                        (((PS.getMovementComponent().getyCoord() + PlayershipHeight) > Bx2.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord() < (Bx2.getMovementComponent().getyCoord() + boxHeight)))) {
-                    bullet2xtime = 50; // 50 bullets
-                    System.out.println("box bx2 taken");
-                    listmov.remove(Bx2.getMovementComponent());
-                    Bx2 = null;
+            if(Bx != null) {
+                // Bx <-> PS
+                if ((((PS.getMovementComponent().getxCoord() + PlayershipWidth) > Bx.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord() < (Bx.getMovementComponent().getxCoord() + boxWidth))) &&   // x-coordinaten vallen samen
+                        (((PS.getMovementComponent().getyCoord() + PlayershipHeight) > Bx.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord() < (Bx.getMovementComponent().getyCoord() + boxHeight)))) {
+                    if(Bx.getNumber()==2){
+                        bullet2xtime = 50; // 50 bullets
+                        System.out.println("box bx2 taken");
+                    }
+                    else if(Bx.getNumber()==3){
+                        bullet3xtime = 35; // 35 bullets
+                        System.out.println("box bx3 taken");
+                    }
+
+                    listmov.remove(Bx.getMovementComponent());
+                    Bx = null;
                     bonusactive = false;
 
                 }
             }
                 // Bx2 <-> rand
-            if(Bx2 != null){
-                if (Bx2.getMovementComponent().getyCoord() + boxHeight >= GameHeigth) {  //bottom
+            if(Bx != null){
+                if (Bx.getMovementComponent().getyCoord() + boxHeight >= GameHeigth) {  //bottom
                     System.out.println("box bx2 passed");
-                    listmov.remove(Bx2.getMovementComponent());
-                    Bx2 = null;
+                    listmov.remove(Bx.getMovementComponent());
+                    Bx = null;
                     bonusactive = false;
                 }
             }
@@ -482,8 +543,8 @@ oude collisions :
             if(FrEs!=null){
                 FrEs.visualise();
             }
-            if(Bx2 != null){
-                Bx2.visualise();
+            if(Bx != null){
+                Bx.visualise();
             }
             F.render();
 
