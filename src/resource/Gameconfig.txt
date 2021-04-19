@@ -1,7 +1,7 @@
 // config file
-// dimensions x y
-game: 10000 10000
-payership: 1000 1500
-bullet: 150 700
-enemyship: 1000 1000
-box: 750 750
+Game: 10000 13000
+Playership: 1000 1500
+Bullet: 150 700
+Enemyship: 1000 1000
+Box: 750 750
+Speed: 2

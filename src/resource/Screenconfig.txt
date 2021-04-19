@@ -1,0 +1,2 @@
+// config file
+Screen: 500 650
