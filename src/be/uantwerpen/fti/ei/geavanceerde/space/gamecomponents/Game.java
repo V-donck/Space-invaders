@@ -53,6 +53,7 @@ public class Game {
 
     public void start(){
 
+
         // default values
         GameWidth = 10000;
         GameHeight = 10000;
@@ -114,7 +115,7 @@ public class Game {
                     if(speed<10 & speed>0){
                         delay = (int) (30/speed);
                     }
-                    System.out.println("speed");
+                    System.out.println("speed"+ delay);
                     break;
                 }
             }
@@ -169,12 +170,17 @@ public class Game {
         listmov.add(PS.getMovementComponent());
         ES = createESlist();
         movup.update(listmov);
+
+        first();
+
         loop();
     }
 
 
 
     void loop() {
+
+
         // initialise some variables
         int teller = 0;
         int i =0;
@@ -429,8 +435,8 @@ public class Game {
 
 
                 // EB <-> PS
-                if ((eb.getMovementComponent().getxCoord()+PlayershipWidth>PS.getMovementComponent().getxCoord()&& eb.getMovementComponent().getxCoord()<PS.getMovementComponent().getxCoord()+PlayershipWidth) &&
-                        (eb.getMovementComponent().getyCoord()+PlayershipHeight>PS.getMovementComponent().getyCoord() && eb.getMovementComponent().getyCoord()<PS.getMovementComponent().getyCoord()+PlayershipHeight)){
+                if ((eb.getMovementComponent().getxCoord()+BulletWidth>PS.getMovementComponent().getxCoord()&& eb.getMovementComponent().getxCoord()<PS.getMovementComponent().getxCoord()+PlayershipWidth) &&
+                        (eb.getMovementComponent().getyCoord()+BulletHeight>PS.getMovementComponent().getyCoord() && eb.getMovementComponent().getyCoord()<PS.getMovementComponent().getyCoord()+PlayershipHeight)){
                     System.out.println("hit playership");
                     PS.setHP(PS.getHP()-eb.getDamage());
                     EB.remove(eb);
@@ -666,5 +672,9 @@ public class Game {
         }
     }
 
+
+    public void first(){
+        F.first();
+    }
 
 }

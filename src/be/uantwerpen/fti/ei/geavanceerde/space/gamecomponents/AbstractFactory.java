@@ -30,6 +30,7 @@ abstract public class AbstractFactory {
     public abstract void render();
     public abstract void updatescore(int score);
     public abstract void updatehp(int hp);
+    public abstract void first();
 
 
 }

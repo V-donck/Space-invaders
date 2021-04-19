@@ -94,7 +94,7 @@ public class Java2DFactory extends AbstractFactory {
 
 
         statusbar = new JLabel(" 0");
-        frame.add(statusbar, BorderLayout.SOUTH);
+        //frame.add(statusbar, BorderLayout.SOUTH);
         //statusbar.setText(String.valueOf(Game.getScore())); -> kan niet hier, score bestaat nog niet, game is nog niet geinitialiseerd.
         fontscore = new Font("TimesRoman", Font.PLAIN, 20);
 
@@ -305,5 +305,57 @@ public class Java2DFactory extends AbstractFactory {
     public void updatehp(int HP){
         this.hp = HP;
     }
+
+
+    public void first(){
+        for(int i = 0; i<1000;i++) {
+
+            Graphics2D g2d = this.getG2d();
+            g2d.drawImage(backgroundIm,0,0,null);
+            Font font = new Font("TimesRoman", Font.PLAIN, ScreenWidth/10);
+            g2d.setFont(font);
+            g2d.drawString("Space Invaders", ScreenWidth/6,ScreenHeight/13);
+            font = new Font("TimesRoman", Font.PLAIN, ScreenWidth/25);
+            g2d.setFont(font);
+            g2d.drawString("Thijs Vanhooydonck",ScreenWidth/3,ScreenHeight/9);
+            g2d.drawString("Press enter to start",ScreenWidth/3,ScreenHeight-ScreenHeight/50);
+            g2d.drawImage(PlayerBulletIm,ScreenWidth/10,(int)(ScreenHeight/6.5),null);
+            g2d.drawImage(EnemyBulletIm,ScreenWidth/15,(int)(ScreenHeight/6.5),null);
+            font = new Font("TimesRoman", Font.PLAIN, ScreenWidth/33);
+            g2d.setFont(font);
+            g2d.drawString("bullets: 10 damage",ScreenWidth/5,(int)(ScreenHeight/5.4));
+            g2d.drawImage(EnemyShipIm,ScreenWidth/20,ScreenHeight/4,null);
+            g2d.drawString("Enemy: 50 HP, if killed 1 point",ScreenWidth/5,200);
+
+
+            g2d.drawImage(PlayerShipIm,25,230,null);
+            g2d.drawString("Playership; 100 HP",ScreenWidth/5,250);
+            g2d.drawImage(FriendlyIm,25,330,null);
+            g2d.drawString("Friendly enemyship: just let them pass, don't shoot them, because then, they will fire back",ScreenWidth/5,350);
+
+
+            g2d.drawImage(BoxDamageBulletIm,25,400,null);
+            g2d.drawString("BoxDamageBullet: some time blue bullets",ScreenWidth/5,420);
+
+            g2d.drawImage(DamageBulletIm,25,450,null);
+            g2d.drawString("blue bullet : 50 damage",ScreenWidth/5,470);
+
+            g2d.drawImage(Bulletx2Im,25,500,null);
+            g2d.drawString("2 bullets",ScreenWidth/5,550);
+            g2d.drawImage(Bulletx3Im,25,550,null);
+            g2d.drawString("3 bullets",ScreenWidth/5,600);
+
+
+
+            this.render();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+
 
 }
