@@ -165,7 +165,7 @@ public class Game {
         PS = F.createPlayership(PlayershipHeight);
         PB = new ArrayList<>();
         EB = new ArrayList<>();
-        isRunning = true;
+        //isRunning = true;
         listmov = new ArrayList<>();
         listmov.add(PS.getMovementComponent());
         ES = createESlist();
@@ -348,7 +348,7 @@ public class Game {
             if(teller%200==0){
                 System.out.println("enemy: fire");
                 EnemyShip es = ES.get((int) (Math.random()*ES.size()));
-                EnemyBullet eb = F.createEnemyBullet(10,es.getMovementComponent().getxCoord()+EnemyshipWidth/2,es.getMovementComponent().getyCoord()+EnemyshipHeight,0,7);
+                EnemyBullet eb = F.createEnemyBullet(100,es.getMovementComponent().getxCoord()+EnemyshipWidth/2,es.getMovementComponent().getyCoord()+EnemyshipHeight,0,7);
                 EB.add(eb);
                 listmov.add(eb.getMovementComponent());
             }
@@ -379,6 +379,7 @@ public class Game {
                         (((PS.getMovementComponent().getyCoord()+PlayershipHeight)>es.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord()<(es.getMovementComponent().getyCoord()+EnemyshipHeight)))){
                     PS.setHP(0);
                     System.out.println("game over");
+                    End();
                 }
 
                 // ES <-> PB
@@ -416,6 +417,7 @@ public class Game {
                     if (es.getMovementComponent().getyCoord() + EnemyshipHeight >= GameHeight) {  //bottom
                         System.out.println("Enemy ship passed");
                         System.out.println("game over");
+                        End();
                     }
                 }
 
@@ -444,6 +446,7 @@ public class Game {
                     i--;
                     if(PS.getHP()<=0){
                         System.out.println("destroyed ps: game over");
+                        End();
                     }
                 }
 
@@ -531,6 +534,7 @@ public class Game {
                         (((PS.getMovementComponent().getyCoord()+PlayershipHeight)>Fr.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord()<(Fr.getMovementComponent().getyCoord()+EnemyshipHeight)))){
                     PS.setHP(0);
                     System.out.println("game over");
+                    End();
                 }
                 // Fr <-> rand
                 if (Fr.getMovementComponent().getyCoord() + EnemyshipHeight >= GameHeight) {  //bottom
@@ -674,7 +678,76 @@ public class Game {
 
 
     public void first(){
+        System.out.println("first game");
         F.first();
+        System.out.println(" na first java");
+        while(!isRunning){
+            if (input.inputAvailable()) {
+                key = input.getInput();
+                System.out.println("pressed key");
+                System.out.println(key);
+                if (key == Input.Inputs.ENTER) {
+                    isRunning = true;
+                    System.out.println("starting:::::");
+                }
+                else{
+                    System.out.println("wait");
+                }
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public void End(){
+        boolean added= false;
+        String name;
+        name = "name2";
+        System.out.println("END");
+        System.out.println("Game over");
+        isRunning = false;
+        ArrayList<String> scorelist= new ArrayList<>();
+        try {
+            System.out.println("read: ");
+            Scanner in = new Scanner(new File("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt"));
+
+            while(in.hasNextLine()) {
+                String currentLine = in.nextLine();
+                String[] words = currentLine.split(" ");
+                System.out.println(currentLine);
+
+                if((score>Integer.parseInt(words[1]) & !added)){
+                    System.out.println(score + " ;;; "+ Integer.parseInt(words[1]));
+                    scorelist.add(name + " " + score);
+                    added = true;
+                }
+                scorelist.add(words[0]+ " "+words[1]);
+            }
+            if(!added & scorelist.size()<10){
+                System.out.println("ofwel slechtste ofwel eerste");
+                scorelist.add(name + " "+ score);
+            }
+            while(added & scorelist.size() >10){
+                scorelist.remove(10);
+            }
+
+
+
+            System.out.println("write: ");
+            FileWriter myWriter = new FileWriter("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt");
+            for(int i=0;i<scorelist.size();i++){
+                System.out.println(scorelist.get(i));
+                myWriter.write(scorelist.get(i)+"\n");
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        }
+        catch (IOException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 
 }

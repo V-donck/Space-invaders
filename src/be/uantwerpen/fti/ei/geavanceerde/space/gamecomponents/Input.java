@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 public class Input {
-    public enum Inputs {LEFT, RIGHT, UP, DOWN, SPACE}
+    public enum Inputs {LEFT, RIGHT, UP, DOWN, SPACE, ENTER}
     private LinkedList<Inputs> keyInputs;
     private KeyInputAdapter keyadapter;
 

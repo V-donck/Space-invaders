@@ -1,6 +1,7 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
 import javax.imageio.ImageIO;
+import javax.script.ScriptEngine;
 import javax.swing.*;
 
 import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
@@ -308,52 +309,51 @@ public class Java2DFactory extends AbstractFactory {
 
 
     public void first(){
-        for(int i = 0; i<1000;i++) {
+        // waardes zijn gegeven in 500,650 scherm
+        double factorxF;
+        double factoryF;
+        factorxF = ScreenWidth/500.0;
+        factoryF = ScreenHeight/650.0;
 
-            Graphics2D g2d = this.getG2d();
-            g2d.drawImage(backgroundIm,0,0,null);
-            Font font = new Font("TimesRoman", Font.PLAIN, ScreenWidth/10);
-            g2d.setFont(font);
-            g2d.drawString("Space Invaders", ScreenWidth/6,ScreenHeight/13);
-            font = new Font("TimesRoman", Font.PLAIN, ScreenWidth/25);
-            g2d.setFont(font);
-            g2d.drawString("Thijs Vanhooydonck",ScreenWidth/3,ScreenHeight/9);
-            g2d.drawString("Press enter to start",ScreenWidth/3,ScreenHeight-ScreenHeight/50);
-            g2d.drawImage(PlayerBulletIm,ScreenWidth/10,(int)(ScreenHeight/6.5),null);
-            g2d.drawImage(EnemyBulletIm,ScreenWidth/15,(int)(ScreenHeight/6.5),null);
-            font = new Font("TimesRoman", Font.PLAIN, ScreenWidth/33);
-            g2d.setFont(font);
-            g2d.drawString("bullets: 10 damage",ScreenWidth/5,(int)(ScreenHeight/5.4));
-            g2d.drawImage(EnemyShipIm,ScreenWidth/20,ScreenHeight/4,null);
-            g2d.drawString("Enemy: 50 HP, if killed 1 point",ScreenWidth/5,200);
+        Graphics2D g2d = this.getG2d();
+        g2d.drawImage(backgroundIm,0,0,null);
+        Font font = new Font("TimesRoman", Font.PLAIN, (int)(factorxF*50));
+        g2d.setFont(font);
+        g2d.drawString("Space Invaders", (int)(factorxF*83),(int)(factoryF*50));
+        font = new Font("TimesRoman", Font.PLAIN, (int)(factorxF*20));
+        g2d.setFont(font);
+        g2d.drawString("Thijs Vanhooydonck",(int)(factorxF*166),(int)(factoryF*72));
+        g2d.drawString("Press enter to start",(int)(factorxF*166),(int)(factoryF*630));
+
+        g2d.drawImage(PlayerBulletIm,(int)(factorxF*50),(int)(factoryF*90),null);
+        g2d.drawImage(EnemyBulletIm,(int)(factorxF*33),(int)(factoryF*90),null);
+        font = new Font("TimesRoman", Font.PLAIN, (int)(factorxF*15));
+        g2d.setFont(font);
+        g2d.drawString("bullets: 10 damage",(int)(factorxF*100),(int)(factoryF*110));
+        g2d.drawImage(EnemyShipIm,(int)(factorxF*20),(int)(factoryF*140),null);
+        g2d.drawString("Enemy: 50 HP, if killed 1 point",(int)(factorxF*100),(int)(factoryF*175));
+
+        g2d.drawImage(PlayerShipIm,(int)(factorxF*20),(int)(factoryF*205),null);
+        g2d.drawString("Playership; 100 HP",(int)(factorxF*100),(int)(factoryF*250));
+        g2d.drawImage(FriendlyIm,(int)(factorxF*20),(int)(factoryF*300),null);
+        g2d.drawString("Friendly enemyship: just let them pass, don't shoot them,",(int)(factorxF*100),(int)(factoryF*320));
+        g2d.drawString("because then, they will fire back",(int)(factorxF*100),(int)(factoryF*340));
+
+        g2d.drawImage(BoxDamageBulletIm,(int)(factorxF*25),(int)(factoryF*370),null);
+        g2d.drawString("BoxDamageBullet: some time blue bullets",(int)(factorxF*100),(int)(factoryF*395));
+
+        g2d.drawImage(DamageBulletIm,(int)(factorxF*39),(int)(factoryF*425),null);
+        g2d.drawString("Blue bullet : 50 damage",(int)(factorxF*100),(int)(factoryF*450));
+
+        g2d.drawImage(Bulletx2Im,(int)(factorxF*25),(int)(factoryF*480),null);
+        g2d.drawString("2 bullets",(int)(factorxF*100),(int)(factoryF*505));
+        g2d.drawImage(Bulletx3Im,(int)(factorxF*25),(int)(factoryF*540),null);
+        g2d.drawString("3 bullets",(int)(factorxF*100),(int)(factoryF*560));
 
 
-            g2d.drawImage(PlayerShipIm,25,230,null);
-            g2d.drawString("Playership; 100 HP",ScreenWidth/5,250);
-            g2d.drawImage(FriendlyIm,25,330,null);
-            g2d.drawString("Friendly enemyship: just let them pass, don't shoot them, because then, they will fire back",ScreenWidth/5,350);
 
-
-            g2d.drawImage(BoxDamageBulletIm,25,400,null);
-            g2d.drawString("BoxDamageBullet: some time blue bullets",ScreenWidth/5,420);
-
-            g2d.drawImage(DamageBulletIm,25,450,null);
-            g2d.drawString("blue bullet : 50 damage",ScreenWidth/5,470);
-
-            g2d.drawImage(Bulletx2Im,25,500,null);
-            g2d.drawString("2 bullets",ScreenWidth/5,550);
-            g2d.drawImage(Bulletx3Im,25,550,null);
-            g2d.drawString("3 bullets",ScreenWidth/5,600);
-
-
-
-            this.render();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-        }
+        this.render();
+        System.out.println("created startscherm");
     }
 
 

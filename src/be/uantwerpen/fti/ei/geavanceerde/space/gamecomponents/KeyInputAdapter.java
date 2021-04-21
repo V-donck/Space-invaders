@@ -25,6 +25,9 @@ public class KeyInputAdapter extends KeyAdapter {
             case KeyEvent.VK_SPACE:
                 keyInputs.add(Input.Inputs.SPACE);
                 break;
+            case KeyEvent.VK_ENTER:
+                keyInputs.add(Input.Inputs.ENTER);
+                break;
         }
     }
 
