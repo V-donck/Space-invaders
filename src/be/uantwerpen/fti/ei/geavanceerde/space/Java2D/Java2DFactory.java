@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Java2DFactory extends AbstractFactory {
@@ -53,6 +54,7 @@ public class Java2DFactory extends AbstractFactory {
     private Font fonthp;
     private int score;
     private int hp;
+    private boolean isrunning = false;
 
     public Java2DFactory() {
         ScreenHeight = 500;
@@ -180,8 +182,10 @@ public class Java2DFactory extends AbstractFactory {
         graph2d.dispose();
         if (g2d != null) {
             g2d.drawImage(backgroundIm, 0, 0, null);
-            g2d.drawString("score: " + score, 10, 30);
-            g2d.drawString("HP: " + hp, 100, 30);
+            if(isrunning) {
+                g2d.drawString("score: " + score, 10, 30);
+                g2d.drawString("HP: " + hp, 100, 30);
+            }
         }
     }
 
@@ -307,6 +311,10 @@ public class Java2DFactory extends AbstractFactory {
         this.hp = HP;
     }
 
+    public void setIsrunning(boolean ir){
+        this.isrunning = ir;
+    }
+
 
     public void first(){
         // waardes zijn gegeven in 500,650 scherm
@@ -354,6 +362,57 @@ public class Java2DFactory extends AbstractFactory {
 
         this.render();
         System.out.println("created startscherm");
+    }
+
+
+
+    public void scorebord(ArrayList<String> scorelist){
+        double factorxE;
+        double factoryE;
+        factorxE = ScreenWidth/500.0;
+        factoryE = ScreenHeight/650.0;
+        Graphics2D g2d = this.getG2d();
+
+        g2d.drawImage(backgroundIm,0,0,null);
+
+
+
+
+        //Font font = new Font("TimesRoman", Font.PLAIN, (int)(factorxF*50));
+        //g2d.setFont(font);
+        //g2d.drawString("Scorebord", (int)(factorxF*83),(int)(factoryF*50));
+        Font font = new Font("Consolas", Font.PLAIN, (int)(factorxE*20));
+        g2d.setFont(font);
+        for(int i =0;i<10;i++){
+            String line = scorelist.get(i);
+            String[] words =line.split(" ");
+            String spaces="";
+            for(int j=0;j<(10-words[0].length());j++){
+                spaces= spaces+" ";
+            }
+            if(i!=9){
+            g2d.drawString(" "+(i+1)+ ": "+words[0]+ spaces+words[1], (int)(factorxE*30),(int)(factoryE*50*(i+1)+50*factoryE));
+            System.out.println((i+1)+" w: "+words[0].length()+ "spa: "+ spaces.length());
+            System.out.println(" "+(i+1)+ ": "+words[0]+ spaces+words[1]);
+            }
+            else{
+                g2d.drawString((i+1)+ ": "+words[0]+ spaces+words[1], (int)(factorxE*30),(int)(factoryE*50*(i+1)+50*factoryE));
+                System.out.println((i+1)+" w: "+words[0].length()+ "spa: "+ spaces.length());
+                System.out.println((i+1)+ ": "+words[0]+ spaces+words[1]);
+            }
+        }
+        font = new Font("Consolas", Font.PLAIN, (int)(factorxE*50));
+        g2d.setFont(font);
+        g2d.drawString("Scorebord", (int)(factorxE*83),(int)(factoryE*50));
+        g2d.drawImage(PlayerShipIm,(int)(factorxE*300),(int)(factoryE*500),null);
+        g2d.drawImage(EnemyShipIm,(int)(factorxE*330),(int)(factoryE*200),null);
+        g2d.drawImage(EnemyShipIm,(int)(factorxE*260),(int)(factoryE*200),null);
+        g2d.drawImage(EnemyBulletIm,(int)(factorxE*340),(int)(factoryE*300),null);
+        g2d.drawImage(EnemyBulletIm,(int)(factorxE*275),(int)(factoryE*350),null);
+        g2d.drawImage(DamageBulletIm,(int)(factorxE*320),(int)(factoryE*430),null);
+        g2d.drawImage(FriendlyIm,(int)(factorxE*400),(int)(factoryE*300),null);
+
+        this.render();
     }
 
 

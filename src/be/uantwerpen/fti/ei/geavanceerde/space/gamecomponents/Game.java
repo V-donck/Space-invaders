@@ -255,6 +255,7 @@ public class Game {
                             System.out.println("x: " +PS.getMovementComponent().getxCoord());
                             System.out.println("y: " +PS.getMovementComponent().getyCoord());
                             System.out.println("shipleft " +(PS.getMovementComponent().getxCoord()+PlayershipWidth) );
+                            End();
                             break;
                         // PS shoot
                         case UP:
@@ -688,6 +689,7 @@ public class Game {
                 System.out.println(key);
                 if (key == Input.Inputs.ENTER) {
                     isRunning = true;
+                    F.setIsrunning(true);
                     System.out.println("starting:::::");
                 }
                 else{
@@ -703,6 +705,7 @@ public class Game {
     }
 
     public void End(){
+        F.setIsrunning(false);
         boolean added= false;
         String name;
         name = "name2";
@@ -720,6 +723,7 @@ public class Game {
                 System.out.println(currentLine);
 
                 if((score>Integer.parseInt(words[1]) & !added)){
+                    name = readname();
                     System.out.println(score + " ;;; "+ Integer.parseInt(words[1]));
                     scorelist.add(name + " " + score);
                     added = true;
@@ -727,6 +731,7 @@ public class Game {
                 scorelist.add(words[0]+ " "+words[1]);
             }
             if(!added & scorelist.size()<10){
+                name = readname();
                 System.out.println("ofwel slechtste ofwel eerste");
                 scorelist.add(name + " "+ score);
             }
@@ -748,6 +753,163 @@ public class Game {
         catch (IOException ex) {
             Thread.currentThread().interrupt();
         }
+        // clear all elements
+        PS = null;
+        ES.clear();
+        EB.clear();
+        PB.clear();
+        F.render();
+
+        F.scorebord(scorelist);
+        while(!isRunning){
+            if (input.inputAvailable()) {
+                key = input.getInput();
+                System.out.println("pressed key");
+                System.out.println(key);
+                if (key == Input.Inputs.ENTER) {
+                    isRunning = true;
+                    System.out.println("starting:::::");
+                }
+                else{
+                    System.out.println("wait");
+                }
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public String readname() {
+        System.out.println("readname");
+        boolean enter = false;
+        String name="";
+        while (!enter) {
+            if (input.inputAvailable()) {
+                key = input.getInput();
+                System.out.println(key);
+                switch (key) {
+                    case A:
+                        System.out.println("A");
+                        name = name + "A";
+                        break;
+                    case B:
+                        System.out.println("B");
+                        name = name + "B";
+                        break;
+                    case C:
+                        System.out.println("C");
+                        name = name + "C";
+                        break;
+                    case D:
+                        System.out.println("D");
+                        name = name + "D";
+                        break;
+                    case E:
+                        System.out.println("E");
+                        name = name + "E";
+                        break;
+                    case F:
+                        System.out.println("F");
+                        name = name + "F";
+                        break;
+                    case G:
+                        System.out.println("G");
+                        name = name + "G";
+                        break;
+                    case H:
+                        System.out.println("H");
+                        name = name + "H";
+                        break;
+                    case I:
+                        System.out.println("I");
+                        name = name + "I";
+                        break;
+                    case J:
+                        System.out.println("J");
+                        name = name + "J";
+                        break;
+                    case K:
+                        System.out.println("K");
+                        name = name + "K";
+                        break;
+                    case L:
+                        System.out.println("L");
+                        name = name + "L";
+                        break;
+                    case M:
+                        System.out.println("M");
+                        name = name + "M";
+                        break;
+                    case N:
+                        System.out.println("N");
+                        name = name + "N";
+                        break;
+                    case O:
+                        System.out.println("O");
+                        name = name + "O";
+                        break;
+                    case P:
+                        System.out.println("P");
+                        name = name + "P";
+                        break;
+                    case Q:
+                        System.out.println("Q");
+                        name = name + "Q";
+                        break;
+                    case R:
+                        System.out.println("R");
+                        name = name + "R";
+                        break;
+                    case S:
+                        System.out.println("S");
+                        name = name + "S";
+                        break;
+                    case T:
+                        System.out.println("T");
+                        name = name + "T";
+                        break;
+                    case U:
+                        System.out.println("U");
+                        name = name + "U";
+                        break;
+                    case V:
+                        System.out.println("V");
+                        name = name + "V";
+                        break;
+                    case W:
+                        System.out.println("W");
+                        name = name + "W";
+                        break;
+                    case X:
+                        System.out.println("X");
+                        name = name + "X";
+                        break;
+                    case Y:
+                        System.out.println("Y");
+                        name = name + "Y";
+                        break;
+                    case Z:
+                        System.out.println("Z");
+                        name = name + "Z";
+                        break;
+                    case BACKSPACE:
+                        System.out.println("Backspace");
+                        if(name.length()>0)
+                        name = name.substring(0, name.length() - 1);
+                        break;
+                    case ENTER:
+                        System.out.println("enter");
+                        enter = true;
+                        break;
+
+
+                }
+            }
+        }
+        return name;
     }
 
 }

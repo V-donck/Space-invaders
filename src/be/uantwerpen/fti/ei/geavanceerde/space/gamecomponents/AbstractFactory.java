@@ -1,6 +1,7 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 abstract public class AbstractFactory {
     public abstract Playership createPlayership(int playershipHeight);
@@ -31,6 +32,9 @@ abstract public class AbstractFactory {
     public abstract void updatescore(int score);
     public abstract void updatehp(int hp);
     public abstract void first();
+    public abstract void scorebord(ArrayList<String> scorelist);
+
+    public abstract void setIsrunning(boolean ir);
 
 
 }
