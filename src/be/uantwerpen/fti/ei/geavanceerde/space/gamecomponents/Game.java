@@ -704,7 +704,7 @@ public class Game {
         catch (IOException ex) {
             Thread.currentThread().interrupt();
         }
-        if (name == "name") {
+        if (name.equals("name")) {
             gameover();
         }
         // clear all elements
