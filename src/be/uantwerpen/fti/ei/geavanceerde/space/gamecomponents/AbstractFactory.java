@@ -26,7 +26,10 @@ abstract public class AbstractFactory {
     public abstract double getFactory();
 
 
-    public abstract JFrame getFrame(); //-> is van Java2Dfactory
+    //public abstract JFrame getFrame(); //-> is van
+    public abstract Input createinput();
+
+
     public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayershipWidth, int GamePlayershipHeight, int BulletWidth, int BulletHeight, int EnemyshipWidth, int EnemyshipHeight, int boxWidth, int boxHeight,     int score);
     public abstract void render();
     public abstract void updatescore(int score);
@@ -36,5 +39,8 @@ abstract public class AbstractFactory {
 
     public abstract void setIsrunning(boolean ir);
 
+    public abstract void updatename(String name);
+    public abstract void gameover();
+    public abstract void readname();
 
 }

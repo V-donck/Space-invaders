@@ -1,124 +1,124 @@
-package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
+package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 public class KeyInputAdapter extends KeyAdapter {
-    private LinkedList<Input.Inputs> keyInputs;
+    private LinkedList<Java2DInput.Inputs> keyInputs;
     @Override
     public void keyPressed(KeyEvent e) {
         int keycode = e.getKeyCode();
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                keyInputs.add(Input.Inputs.LEFT);
+                keyInputs.add(Java2DInput.Inputs.LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
-                keyInputs.add(Input.Inputs.RIGHT);
+                keyInputs.add(Java2DInput.Inputs.RIGHT);
                 break;
             case KeyEvent.VK_DOWN:
-                keyInputs.add(Input.Inputs.DOWN);
+                keyInputs.add(Java2DInput.Inputs.DOWN);
                 break;
             case KeyEvent.VK_UP:
-                keyInputs.add(Input.Inputs.UP);
+                keyInputs.add(Java2DInput.Inputs.UP);
                 break;
             case KeyEvent.VK_SPACE:
-                keyInputs.add(Input.Inputs.SPACE);
+                keyInputs.add(Java2DInput.Inputs.SPACE);
                 break;
             case KeyEvent.VK_ENTER:
-                keyInputs.add(Input.Inputs.ENTER);
+                keyInputs.add(Java2DInput.Inputs.ENTER);
                 break;
             case KeyEvent.VK_A:
-                keyInputs.add(Input.Inputs.A);
+                keyInputs.add(Java2DInput.Inputs.A);
                 break;
             case KeyEvent.VK_B:
-                keyInputs.add(Input.Inputs.B);
+                keyInputs.add(Java2DInput.Inputs.B);
                 break;
             case KeyEvent.VK_C:
-                keyInputs.add(Input.Inputs.C);
+                keyInputs.add(Java2DInput.Inputs.C);
                 break;
             case KeyEvent.VK_D:
-                keyInputs.add(Input.Inputs.D);
+                keyInputs.add(Java2DInput.Inputs.D);
                 break;
             case KeyEvent.VK_E:
-                keyInputs.add(Input.Inputs.E);
+                keyInputs.add(Java2DInput.Inputs.E);
                 break;
             case KeyEvent.VK_F:
-                keyInputs.add(Input.Inputs.F);
+                keyInputs.add(Java2DInput.Inputs.F);
                 break;
             case KeyEvent.VK_G:
-                keyInputs.add(Input.Inputs.G);
+                keyInputs.add(Java2DInput.Inputs.G);
                 break;
             case KeyEvent.VK_H:
-                keyInputs.add(Input.Inputs.H);
+                keyInputs.add(Java2DInput.Inputs.H);
                 break;
             case KeyEvent.VK_I:
-                keyInputs.add(Input.Inputs.I);
+                keyInputs.add(Java2DInput.Inputs.I);
                 break;
             case KeyEvent.VK_J:
-                keyInputs.add(Input.Inputs.J);
+                keyInputs.add(Java2DInput.Inputs.J);
                 break;
             case KeyEvent.VK_K:
-                keyInputs.add(Input.Inputs.K);
+                keyInputs.add(Java2DInput.Inputs.K);
                 break;
             case KeyEvent.VK_L:
-                keyInputs.add(Input.Inputs.L);
+                keyInputs.add(Java2DInput.Inputs.L);
                 break;
             case KeyEvent.VK_M:
-                keyInputs.add(Input.Inputs.M);
+                keyInputs.add(Java2DInput.Inputs.M);
                 break;
             case KeyEvent.VK_N:
-                keyInputs.add(Input.Inputs.N);
+                keyInputs.add(Java2DInput.Inputs.N);
                 break;
             case KeyEvent.VK_O:
-                keyInputs.add(Input.Inputs.O);
+                keyInputs.add(Java2DInput.Inputs.O);
                 break;
             case KeyEvent.VK_P:
-                keyInputs.add(Input.Inputs.P);
+                keyInputs.add(Java2DInput.Inputs.P);
                 break;
             case KeyEvent.VK_Q:
-                keyInputs.add(Input.Inputs.Q);
+                keyInputs.add(Java2DInput.Inputs.Q);
                 break;
             case KeyEvent.VK_R:
-                keyInputs.add(Input.Inputs.R);
+                keyInputs.add(Java2DInput.Inputs.R);
                 break;
             case KeyEvent.VK_S:
-                keyInputs.add(Input.Inputs.S);
+                keyInputs.add(Java2DInput.Inputs.S);
                 break;
             case KeyEvent.VK_T:
-                keyInputs.add(Input.Inputs.T);
+                keyInputs.add(Java2DInput.Inputs.T);
                 break;
             case KeyEvent.VK_U:
-                keyInputs.add(Input.Inputs.U);
+                keyInputs.add(Java2DInput.Inputs.U);
                 break;
             case KeyEvent.VK_V:
-                keyInputs.add(Input.Inputs.V);
+                keyInputs.add(Java2DInput.Inputs.V);
                 break;
             case KeyEvent.VK_W:
-                keyInputs.add(Input.Inputs.W);
+                keyInputs.add(Java2DInput.Inputs.W);
                 break;
             case KeyEvent.VK_X:
-                keyInputs.add(Input.Inputs.X);
+                keyInputs.add(Java2DInput.Inputs.X);
                 break;
             case KeyEvent.VK_Y:
-                keyInputs.add(Input.Inputs.Y);
+                keyInputs.add(Java2DInput.Inputs.Y);
                 break;
             case KeyEvent.VK_Z:
-                keyInputs.add(Input.Inputs.Z);
+                keyInputs.add(Java2DInput.Inputs.Z);
                 break;
             case KeyEvent.VK_BACK_SPACE:
-                keyInputs.add(Input.Inputs.BACKSPACE);
+                keyInputs.add(Java2DInput.Inputs.BACKSPACE);
                 break;
 
 
         }
     }
 
-    public LinkedList<Input.Inputs> getKeyInputs(){
+    public LinkedList<Java2DInput.Inputs> getKeyInputs(){
         return keyInputs;
     }
 
     public KeyInputAdapter() {
-        this.keyInputs = new LinkedList<Input.Inputs>();
+        this.keyInputs = new LinkedList<Java2DInput.Inputs>();
     }
 }

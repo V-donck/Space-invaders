@@ -1,18 +1,15 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.io.*;
-import java.util.*;
 import java.util.Scanner;
 
+import static be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Input.Inputs.ENTER;
 
 public class Game {
     private int GameHeight;
     private int GameWidth;
-
     private int PlayershipWidth;
     private int PlayershipHeight;
     private int BulletWidth;
@@ -23,15 +20,15 @@ public class Game {
     private int boxWidth;
     private int delay;
 
-    private AbstractFactory F;
-    private MovementUpdater movup;
+    private final AbstractFactory F;
+    private final MovementUpdater movup;
     private ArrayList<MovementComponent> listmov;
     private Playership PS;
     private ArrayList<EnemyShip> ES;
     private ArrayList<PlayerBullet> PB;
     private ArrayList<EnemyBullet> EB;
     private int score;
-    private Input input;
+    private final Input input;
     private Input.Inputs key;
     private boolean isRunning;
     private Friendly Fr;
@@ -45,15 +42,13 @@ public class Game {
         F = f;
         movup = new MovementUpdater();
         score = 0;
-        input = new Input(F);
+        input = F.createinput();
         isRunning = false;
+        F.setIsrunning(isRunning);
     }
 
 
-
     public void start(){
-
-
         // default values
         GameWidth = 10000;
         GameHeight = 10000;
@@ -119,72 +114,25 @@ public class Game {
                     break;
                 }
             }
-            /*
-            if(words[0].equals("Game:")){
-                GameHeight = Integer.parseInt(words[2]);
-                GameWidth = Integer.parseInt(words[1]);
-                System.out.println("game");
-            }
-            else if(words[0].equals("Playership:")){
-                PlayershipHeight = Integer.parseInt(words[2]);
-                PlayershipWidth = Integer.parseInt(words[1]);
-                System.out.println("playership");
-            }
-            else if(words[0].equals("Bullet:")){
-                BulletHeight = Integer.parseInt(words[2]);
-                BulletWidth = Integer.parseInt(words[1]);
-                System.out.println("bullet");
-            }
-            else if(words[0].equals("Enemyship:")){
-                EnemyshipHeight = Integer.parseInt(words[2]);
-                EnemyshipWidth = Integer.parseInt(words[1]);
-                System.out.println("enemyship");
-            }
-            else if(words[0].equals("Box:")){
-                boxHeight = Integer.parseInt(words[2]);
-                boxWidth = Integer.parseInt(words[1]);
-                System.out.println("box");
-            }
-            else if(words[0].equals("Speed:")){
-                double speed = Integer.parseInt(words[1]);
-                if(speed<10 & speed>0){
-                    delay = (int) (30/speed);
-                }
-                System.out.println("box");
-            }*/
         }
         } catch (IOException ex) {
             Thread.currentThread().interrupt();
         }
 
-
-
         // set dimensions
         F.setGameDimensions(GameWidth, GameHeight, PlayershipWidth, PlayershipHeight, BulletWidth, BulletHeight, EnemyshipWidth, EnemyshipHeight,boxWidth,boxHeight, score);
-        // initialise objects
-        PS = F.createPlayership(PlayershipHeight);
-        PB = new ArrayList<>();
-        EB = new ArrayList<>();
-        //isRunning = true;
-        listmov = new ArrayList<>();
-        listmov.add(PS.getMovementComponent());
-        ES = createESlist();
-        movup.update(listmov);
-
-        first();
-
+        first(); // create startscreen
+        initialise(); // initialise all game components
         loop();
     }
 
 
 
     void loop() {
-
-
         // initialise some variables
         int teller = 0;
-        int i =0;
-        int j = 0;
+        int i;
+        int j;
         int randomvalue = (int) (Math.random()*1500);
         int randomvalue2;
         int bullet2xtime = 0;
@@ -196,6 +144,7 @@ public class Game {
         System.out.println("randomvalue" + randomvalue);
         boolean canshoot= true;
         listremovees = new ArrayList<>();
+        System.out.println("isrunnning : "+ isRunning);
 
         // loop
         while (isRunning) {
@@ -232,9 +181,11 @@ public class Game {
                 key = input.getInput();
                 if (key == Input.Inputs.SPACE) {
                     isRunning = false;
+                    F.setIsrunning(isRunning);
                     System.exit(0);
                 } else {
                     isRunning = true;
+                    F.setIsrunning(isRunning);
                     switch (key) {
                         case LEFT:
                             System.out.println("left");
@@ -687,7 +638,7 @@ public class Game {
                 key = input.getInput();
                 System.out.println("pressed key");
                 System.out.println(key);
-                if (key == Input.Inputs.ENTER) {
+                if (key == ENTER) {
                     isRunning = true;
                     F.setIsrunning(true);
                     System.out.println("starting:::::");
@@ -705,18 +656,18 @@ public class Game {
     }
 
     public void End(){
+        isRunning = false;
         F.setIsrunning(false);
         boolean added= false;
         String name;
-        name = "name2";
+        name = "name";
         System.out.println("END");
         System.out.println("Game over");
-        isRunning = false;
+
         ArrayList<String> scorelist= new ArrayList<>();
         try {
             System.out.println("read: ");
             Scanner in = new Scanner(new File("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt"));
-
             while(in.hasNextLine()) {
                 String currentLine = in.nextLine();
                 String[] words = currentLine.split(" ");
@@ -743,9 +694,9 @@ public class Game {
 
             System.out.println("write: ");
             FileWriter myWriter = new FileWriter("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt");
-            for(int i=0;i<scorelist.size();i++){
-                System.out.println(scorelist.get(i));
-                myWriter.write(scorelist.get(i)+"\n");
+            for(String line: scorelist){
+                System.out.println(line);
+                myWriter.write(line+"\n");
             }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
@@ -753,22 +704,58 @@ public class Game {
         catch (IOException ex) {
             Thread.currentThread().interrupt();
         }
+        if (name == "name") {
+            gameover();
+        }
         // clear all elements
         PS = null;
         ES.clear();
         EB.clear();
         PB.clear();
-        F.render();
+        Bx = null;
+        BDB = null;
+        Fr = null;
+        FrEs = null;
 
+        scorebord(scorelist);
+    }
+
+    public void gameover(){
+        System.out.println("gameoverfuncite");
+        F.gameover();
+        boolean keyinput = false;
+        while (!keyinput) {
+            if (input.inputAvailable()) {
+                key = input.getInput();
+                System.out.println(key);
+                if(key == ENTER) {
+                    keyinput = true;
+                    System.out.println("verder!!!");
+                }
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public void scorebord(ArrayList<String> scorelist){
         F.scorebord(scorelist);
+        F.render();
+        System.out.println("uit java2d. scorebord");
         while(!isRunning){
             if (input.inputAvailable()) {
                 key = input.getInput();
                 System.out.println("pressed key");
                 System.out.println(key);
-                if (key == Input.Inputs.ENTER) {
+                if (key == ENTER) {
                     isRunning = true;
+                    F.setIsrunning(isRunning);
                     System.out.println("starting:::::");
+                    initialise();
+                    loop();
                 }
                 else{
                     System.out.println("wait");
@@ -782,7 +769,10 @@ public class Game {
         }
     }
 
+
+
     public String readname() {
+        F.readname();
         System.out.println("readname");
         boolean enter = false;
         String name="";
@@ -904,12 +894,34 @@ public class Game {
                         System.out.println("enter");
                         enter = true;
                         break;
-
-
                 }
+                if(name.length()>9) {
+                    System.out.println("Backspace");
+                    name = name.substring(0, name.length() - 1);
+                }
+            }
+            F.updatename(name);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
             }
         }
         return name;
+    }
+
+
+    public void initialise(){
+        score =0;
+        PS = F.createPlayership(PlayershipHeight);
+        PB = new ArrayList<>();
+        EB = new ArrayList<>();
+        isRunning = true;
+        F.setIsrunning(isRunning);
+        listmov = new ArrayList<>();
+        listmov.add(PS.getMovementComponent());
+        ES = createESlist();
+        movup.update(listmov);
     }
 
 }
