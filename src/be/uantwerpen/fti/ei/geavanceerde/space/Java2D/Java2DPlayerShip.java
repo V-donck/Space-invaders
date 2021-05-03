@@ -2,16 +2,12 @@ package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
 import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-public class Java2DPlayership extends Playership{
+public class Java2DPlayerShip extends PlayerShip {
     private Java2DFactory F;
 
-    public Java2DPlayership(Java2DFactory F, int PlayershipHeight,int PlayershipWidth, int GameWidth,int GameHeight) {
+    public Java2DPlayerShip(Java2DFactory F, int PlayershipHeight, int PlayershipWidth, int GameWidth, int GameHeight) {
         super(PlayershipHeight,PlayershipWidth, GameWidth, GameHeight);
         this.F = F;
 

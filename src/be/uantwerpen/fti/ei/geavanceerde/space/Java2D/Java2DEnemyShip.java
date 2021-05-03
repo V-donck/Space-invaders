@@ -11,13 +11,19 @@ public class Java2DEnemyShip extends EnemyShip{
         this.F = F;
     }
 
-    public Java2DEnemyShip(Java2DFactory F, int hp, int x,int y, int dx, int dy) {
-        super(hp,x,y,dx,dy);
+    public Java2DEnemyShip(Java2DFactory F, int hp, int x,int y, int dx, int dy,int level) {
+        super(hp,x,y,dx,dy,level);
         this.F = F;
     }
 
     public void visualise(){
         Graphics2D g2d = F.getG2d();
-        g2d.drawImage(F.getEnemyShipIm(),(int) (this.getMovementComponent().getxCoord()*F.getFactorx()),(int) (this.getMovementComponent().getyCoord()*F.getFactory()),null);
+        if(level<3){
+            g2d.drawImage(F.getEnemyShipIm(),(int) (this.getMovementComponent().getxCoord()*F.getFactorx()),(int) (this.getMovementComponent().getyCoord()*F.getFactory()),null);
+        }
+        else{
+            g2d.drawImage(F.getEnemyShip2Im(),(int) (this.getMovementComponent().getxCoord()*F.getFactorx()),(int) (this.getMovementComponent().getyCoord()*F.getFactory()),null);
+        }
+
     }
 }
