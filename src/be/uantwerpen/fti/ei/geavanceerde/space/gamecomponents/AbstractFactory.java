@@ -4,14 +4,14 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 abstract public class AbstractFactory {
-    public abstract Playership createPlayership(int playershipHeight);
+    public abstract Playership createPlayership(int playershipHeight,int playershipWidth, int GameWidth, int GameHeight);
     public abstract PlayerBullet createPlayerBullet(int damage, int x, int y, int dx, int dy);
     public abstract EnemyShip createEnemyship();
     public abstract EnemyShip createEnemyship(int HP, int x, int y, int dx, int dy);
     public abstract EnemyBullet createEnemyBullet(int damage, int x, int y, int dx, int dy);
-    public abstract Friendly createFriendly();
-    public abstract Bulletx createBulletx(int number);
-    public abstract BoxDamageBullet createBoxDamageBullet();
+    public abstract Friendly createFriendly(int xcoord);
+    public abstract Bulletx createBulletx(int number, int xcoord);
+    public abstract BoxDamageBullet createBoxDamageBullet(int xcoord);
 
 
     public abstract int getPlayershipWidth();

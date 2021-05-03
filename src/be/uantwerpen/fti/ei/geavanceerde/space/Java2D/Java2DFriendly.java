@@ -7,8 +7,8 @@ import java.awt.*;
 public class Java2DFriendly extends Friendly{
     Java2DFactory F;
 
-    public Java2DFriendly(Java2DFactory F) {
-        super(F);
+    public Java2DFriendly(Java2DFactory F,int xcoord) {
+        super(xcoord);
         this.F = F;
 
     }

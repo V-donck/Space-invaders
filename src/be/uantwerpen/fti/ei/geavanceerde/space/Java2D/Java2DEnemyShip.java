@@ -12,9 +12,8 @@ public class Java2DEnemyShip extends EnemyShip{
     }
 
     public Java2DEnemyShip(Java2DFactory F, int hp, int x,int y, int dx, int dy) {
+        super(hp,x,y,dx,dy);
         this.F = F;
-        this.setHP(hp);
-        this.setMovementComponent(x,y,dx,dy);
     }
 
     public void visualise(){

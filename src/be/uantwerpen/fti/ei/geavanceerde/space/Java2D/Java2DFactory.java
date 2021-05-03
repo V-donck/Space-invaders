@@ -239,8 +239,8 @@ public class Java2DFactory extends AbstractFactory {
 
 
 
-    public Playership createPlayership(int playershipheight){
-        return new Java2DPlayership(this,playershipheight);
+    public Playership createPlayership(int playershipHeight,int playershipWidth, int GameWidth, int GameHeight){
+        return new Java2DPlayership(this,playershipHeight,playershipWidth, GameWidth, GameHeight);
     }
 
     public Java2DPlayerBullet createPlayerBullet(int damage, int x, int y, int dx, int dy){
@@ -259,15 +259,15 @@ public class Java2DFactory extends AbstractFactory {
         return new Java2DEnemyBullet(this,damage,x,y,dx,dy);
     }
 
-    public Java2DFriendly createFriendly(){
-        return new Java2DFriendly(this);
+    public Java2DFriendly createFriendly(int xcoord){
+        return new Java2DFriendly(this,xcoord);
     }
 
-    public Java2DBulletx createBulletx(int number){
-        return new Java2DBulletx(this,number);
+    public Java2DBulletx createBulletx(int number,int xcoord){
+        return new Java2DBulletx(this,number,xcoord);
     }
 
-    public Java2DBoxDamageBullet createBoxDamageBullet(){return new Java2DBoxDamageBullet(this);}
+    public Java2DBoxDamageBullet createBoxDamageBullet(int xcoord){return new Java2DBoxDamageBullet(this, xcoord);}
 
     public Java2DInput createinput(){
         return new Java2DInput(this);

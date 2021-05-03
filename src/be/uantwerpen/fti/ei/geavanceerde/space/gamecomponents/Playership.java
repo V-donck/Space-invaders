@@ -1,27 +1,19 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
-abstract public class Playership extends PlayerEntity {
-    private int HP;
-    private AbstractFactory F;
+abstract public class Playership extends Ship {
 
 
 
-    public Playership(AbstractFactory F,int PlayershipHeight) {
-        this.HP = 100;
-        this.F = F;
-        this.setMovementComponent(F.getGameWidth()/2,(int) (F.getGameHeight()-PlayershipHeight*1.4),0,0);/// hier nog 300 aanpassen
-        this.setWidth(F.getPlayershipWidth());
-        this.setHeight(F.getPlayershipHeight());
+
+    public Playership(int PlayershipHeight,int PlayershipWidth, int GameWidth,int GameHeight) {
+        super(100);
+        this.setMovementComponent(GameWidth/2,(int) (GameHeight-PlayershipHeight*1.4),0,0);
+        this.setWidth(PlayershipWidth);
+        this.setHeight(PlayershipHeight);
     }
 
     public abstract void visualise();
 
-    public void setHP(int HP){
-        this.HP = HP;
-    }
-    public int getHP(){
-        return HP;
-    }
 
 
 }

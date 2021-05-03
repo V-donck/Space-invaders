@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class Java2DBoxDamageBullet extends BoxDamageBullet {
     Java2DFactory F;
-    public Java2DBoxDamageBullet(Java2DFactory F) {
-        super(F);
+    public Java2DBoxDamageBullet(Java2DFactory F,int xcoord) {
+        super(xcoord);
         this.F = F;
     }
     public void visualise(){

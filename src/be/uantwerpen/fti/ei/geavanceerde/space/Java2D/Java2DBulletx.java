@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class Java2DBulletx extends Bulletx{
     Java2DFactory F;
-    public Java2DBulletx(Java2DFactory F, int number) {
-        super(F,number);
+    public Java2DBulletx(Java2DFactory F, int number,int xcoord) {
+        super(number,xcoord);
         this.F = F;
     }
 

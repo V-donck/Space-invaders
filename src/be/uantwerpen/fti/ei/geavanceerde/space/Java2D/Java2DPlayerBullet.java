@@ -8,7 +8,7 @@ public class Java2DPlayerBullet extends PlayerBullet{
     private Java2DFactory F;
 
     public Java2DPlayerBullet(Java2DFactory F,int damage, int x, int y, int dx, int dy) {
-        super(F, damage,x,y,dx,dy);
+        super(damage,x,y,dx,dy);
         this.F = F;
 
     }

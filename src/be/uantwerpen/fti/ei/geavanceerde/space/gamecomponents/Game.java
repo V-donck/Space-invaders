@@ -36,6 +36,14 @@ public class Game {
     private boolean bonusactive = false;
     private Bulletx Bx;
     private BoxDamageBullet BDB;
+    private Timer timer;
+    private int tellermax;
+
+
+    private int bullet2xtime = 0;
+    private int bullet3xtime = 0;
+    private int damageBulletTime = 0;
+    private boolean EsHitSide= false;
 
 
     public Game(AbstractFactory f) {
@@ -45,6 +53,7 @@ public class Game {
         input = F.createinput();
         isRunning = false;
         F.setIsrunning(isRunning);
+        timer = new Timer();
     }
 
 
@@ -61,6 +70,7 @@ public class Game {
         boxWidth = 750;
         boxHeight = 750;
         delay = 15;
+        tellermax =1500;
 
         // read config file, if some values not present, standard values are used
         try {
@@ -133,25 +143,27 @@ public class Game {
         int teller = 0;
         int i;
         int j;
-        int randomvalue = (int) (Math.random()*1500);
+        int randomvalue = (int) (Math.random()*tellermax);
         int randomvalue2;
-        int bullet2xtime = 0;
-        int bullet3xtime = 0;
+        // int bullet2xtime = 0;
+        //int bullet3xtime = 0;
         int damagebullet = 10;
-        int damageBulletTime = 0;
-        boolean EsHitSide= false;
-        ArrayList<EnemyShip> listremovees;
+        //int damageBulletTime = 0;
+        //boolean EsHitSide= false;
+        //ArrayList<EnemyShip> listremovees;
         System.out.println("randomvalue" + randomvalue);
         boolean canshoot= true;
-        listremovees = new ArrayList<>();
+        //listremovees = new ArrayList<>();
         System.out.println("isrunnning : "+ isRunning);
 
         // loop
         while (isRunning) {
+            timer.start();
             EsHitSide = false;
-            PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, 0);
+            PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, 0); // PS stands still
 
             // create new enemyships if all enemys are killed
+            // hier levels inbrengen??
             if(ES.isEmpty()){
                 ES = createESlist();
             }
@@ -165,9 +177,9 @@ public class Game {
             }
 
             // teller to delay some actions
-            if(teller>=1500){
+            if(teller>=tellermax){
                 teller=0;
-                randomvalue = (int) (Math.random()*1500);
+                randomvalue = (int) (Math.random()*tellermax);
                 System.out.println("randomvalue loop" + randomvalue);
             }
             else{
@@ -190,14 +202,14 @@ public class Game {
                         case LEFT:
                             System.out.println("left");
                             if(PS.getMovementComponent().getxCoord()>0)
-                                PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), -100, 0);
+                                PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), -GameWidth/100, 0); //dx default -100
                             else
                                 PS.setMovementComponent(0, PS.getMovementComponent().getyCoord(), 0, 0);
                             break;
                         case RIGHT:
                             System.out.println("right");
                             if(PS.getMovementComponent().getxCoord()+PlayershipWidth< GameWidth)//gamewidth-size ps )
-                                PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 100, 0);
+                                PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), GameWidth/100, 0); // dx default 100
                             else
                                 PS.setMovementComponent(GameWidth-PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, 0);
                             break;
@@ -217,15 +229,15 @@ public class Game {
                                 if(bullet3xtime > 0){ // PS shoots 3 bullets
                                     bullet3xtime--;
                                     System.out.println("aantal tripele kogels : "+ bullet3xtime);
-                                    PlayerBullet playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PlayerBullet playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -GameHeight/200); // dy default -50
                                     PB.add(playbul);
                                     listmov.add(playbul.getMovementComponent());
                                     System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
-                                    playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -50);
+                                    playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -GameHeight/200); // dy default -50
                                     PB.add(playbul);
                                     listmov.add(playbul.getMovementComponent());
                                     System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
-                                    playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth/2, PS.getMovementComponent().getyCoord()-BulletHeight/4, 0, -50);
+                                    playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth/2, PS.getMovementComponent().getyCoord()-BulletHeight/4, 0, -GameHeight/200); // dy default -50
                                     PB.add(playbul);
                                     listmov.add(playbul.getMovementComponent());
                                     System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
@@ -234,18 +246,18 @@ public class Game {
                                 else if (bullet2xtime> 0) { // PS shoot 2 bullets
                                     bullet2xtime--;
                                     System.out.println("aantal dubbele kogels : " + bullet2xtime);
-                                    PlayerBullet playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PlayerBullet playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, -GameHeight/200); // dy default -50
                                     PB.add(playbul);
                                     listmov.add(playbul.getMovementComponent());
                                     System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
-                                    playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -50);
+                                    playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth, PS.getMovementComponent().getyCoord(), 0, -GameHeight/200); // dy default -50
                                     PB.add(playbul);
                                     listmov.add(playbul.getMovementComponent());
                                     System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
                                 }
                                 // PS shoot 1 bullet
                                 else {
-                                    PlayerBullet playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth / 2, PS.getMovementComponent().getyCoord(), 0, -50);
+                                    PlayerBullet playbul = F.createPlayerBullet(damagebullet, PS.getMovementComponent().getxCoord() + PlayershipWidth / 2, PS.getMovementComponent().getyCoord(), 0, -GameHeight/200); // dy default -50
                                     PB.add(playbul);
                                     listmov.add(playbul.getMovementComponent());
                                     System.out.println(playbul.getMovementComponent().getxCoord() + "   =" + playbul.getMovementComponent().getyCoord());
@@ -260,9 +272,6 @@ public class Game {
             }
 
 
-
-
-
             // bonus
             if(teller == randomvalue & !bonusactive){ // bonus
                 System.out.println("teller = randomvalue");
@@ -271,25 +280,25 @@ public class Game {
                 // randomvalue2 = 0 -> no bonus
                 if(randomvalue2 ==1) { // friendly
                     bonusactive = true;
-                    Fr = F.createFriendly();
+                    Fr = F.createFriendly((int) (Math.random()*(GameWidth)-EnemyshipWidth));
                     System.out.println("create friendly");
                     listmov.add(Fr.getMovementComponent());
                 }
                 else if(randomvalue2 == 2){ // bulletx2
                     bonusactive = true;
-                    Bx = F.createBulletx(2);
+                    Bx = F.createBulletx(2,(int) (Math.random()*GameWidth));
                     System.out.println("create bx2");
                     listmov.add(Bx.getMovementComponent());
                 }
                 else if(randomvalue2 == 3){ // bulletx3
                     bonusactive = true;
-                    Bx = F.createBulletx(3);
+                    Bx = F.createBulletx(3,(int) (Math.random()*GameWidth));
                     System.out.println("create bx3");
                     listmov.add(Bx.getMovementComponent());
                 }
                 else if(randomvalue2 == 4){ // damagebulletbox
                     bonusactive = true;
-                    BDB = F.createBoxDamageBullet();
+                    BDB = F.createBoxDamageBullet((int) (Math.random()*GameWidth));
                     System.out.println("created boxdamagebullet");
                     listmov.add(BDB.getMovementComponent());
                 }
@@ -297,259 +306,29 @@ public class Game {
             }
 
             // enemyship shoot
-            if(teller%200==0){
+            if(teller%(int)(tellermax/7.5)==0){ // default 200
                 System.out.println("enemy: fire");
                 EnemyShip es = ES.get((int) (Math.random()*ES.size()));
-                EnemyBullet eb = F.createEnemyBullet(100,es.getMovementComponent().getxCoord()+EnemyshipWidth/2,es.getMovementComponent().getyCoord()+EnemyshipHeight,0,7);
+                EnemyBullet eb = F.createEnemyBullet(10,es.getMovementComponent().getxCoord()+EnemyshipWidth/2,es.getMovementComponent().getyCoord()+EnemyshipHeight,0,GameHeight/1000); //dy default 10
                 EB.add(eb);
                 listmov.add(eb.getMovementComponent());
             }
 
             // FrEs shoot
-            if(FrEs !=null & teller%200==0){
+            if(FrEs !=null & teller%(int)(tellermax/7.5)==0){ // default 200
                 System.out.println("Frenemy: fire");
-                EnemyBullet eb = F.createEnemyBullet(20,FrEs.getMovementComponent().getxCoord()+EnemyshipWidth/2,FrEs.getMovementComponent().getyCoord()+EnemyshipHeight,0,7);
+                EnemyBullet eb = F.createEnemyBullet(20,FrEs.getMovementComponent().getxCoord()+EnemyshipWidth/2,FrEs.getMovementComponent().getyCoord()+EnemyshipHeight,0,GameHeight/1000); //dy default 10
                 EB.add(eb);
                 listmov.add(eb.getMovementComponent());
             }
 
             // PS canshoot
-            if(teller%50==0){
+            if(teller%(tellermax/30)==0){ // default 50
                 canshoot = true;
             }
 
 
-
-
-
-        // collisions
-            // collisions ES
-            for(i=0; i<ES.size();i++){
-                EnemyShip es = ES.get(i);
-                // ES <-> PS
-                if((((PS.getMovementComponent().getxCoord() + PlayershipWidth)>es.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord()<(es.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
-                        (((PS.getMovementComponent().getyCoord()+PlayershipHeight)>es.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord()<(es.getMovementComponent().getyCoord()+EnemyshipHeight)))){
-                    PS.setHP(0);
-                    System.out.println("game over");
-                    End();
-                }
-
-                // ES <-> PB
-                for(j=0; j<PB.size();j++){
-                    PlayerBullet pb = PB.get(j);
-                    if((((pb.getMovementComponent().getxCoord() + BulletWidth)>es.getMovementComponent().getxCoord()) && (pb.getMovementComponent().getxCoord()<(es.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
-                            (((pb.getMovementComponent().getyCoord()+BulletHeight)>es.getMovementComponent().getyCoord()) && (pb.getMovementComponent().getyCoord()<(es.getMovementComponent().getyCoord()+EnemyshipHeight)))){   // y-coordinaat vallen samen
-                        System.out.println("hit");
-                        es.setHP(es.getHP()-pb.getDamage());
-                        PB.remove(j);
-                        listmov.remove(pb.getMovementComponent());
-                        j--;
-                        System.out.println(es.getHP());
-                        if(es.getHP()<=0) {
-                            System.out.println("ES destroyed");
-                            score++;
-                            F.updatescore(score);
-                            listremovees.add(es);
-                            System.out.println("added es to listremovees");
-                        }
-
-
-                    }
-                }
-                // ES <-> rand
-                if(!EsHitSide) {
-                    if (es.getMovementComponent().getxCoord() <= 0) { // left side
-                        Enemyshipsetdirection(1);
-                        EsHitSide = true;
-                    }
-                    if (es.getMovementComponent().getxCoord() + EnemyshipWidth >= GameWidth) { // right side
-                        Enemyshipsetdirection(-1);
-                        EsHitSide = true;
-                    }
-                    if (es.getMovementComponent().getyCoord() + EnemyshipHeight >= GameHeight) {  //bottom
-                        System.out.println("Enemy ship passed");
-                        System.out.println("game over");
-                        End();
-                    }
-                }
-
-
-            }
-            //remove es
-            for(EnemyShip es: listremovees){
-                System.out.println("enemyship in listremovees");
-                ES.remove(es);
-                listmov.remove(es.getMovementComponent());
-            }
-            listremovees.clear();
-
-            // collisions EB
-            for(i = 0;i<EB.size();i++){
-                EnemyBullet eb = EB.get(i);
-
-
-                // EB <-> PS
-                if ((eb.getMovementComponent().getxCoord()+BulletWidth>PS.getMovementComponent().getxCoord()&& eb.getMovementComponent().getxCoord()<PS.getMovementComponent().getxCoord()+PlayershipWidth) &&
-                        (eb.getMovementComponent().getyCoord()+BulletHeight>PS.getMovementComponent().getyCoord() && eb.getMovementComponent().getyCoord()<PS.getMovementComponent().getyCoord()+PlayershipHeight)){
-                    System.out.println("hit playership");
-                    PS.setHP(PS.getHP()-eb.getDamage());
-                    EB.remove(eb);
-                    listmov.remove(eb.getMovementComponent());
-                    i--;
-                    if(PS.getHP()<=0){
-                        System.out.println("destroyed ps: game over");
-                        End();
-                    }
-                }
-
-                // EB <-> PB
-                for(j = 0; j<PB.size();j++) {
-                    PlayerBullet pb = PB.get(j);
-                    if ((eb.getMovementComponent().getxCoord() + BulletWidth > pb.getMovementComponent().getxCoord() && eb.getMovementComponent().getxCoord() < pb.getMovementComponent().getxCoord() + BulletWidth) &&
-                            (eb.getMovementComponent().getyCoord() + BulletHeight > pb.getMovementComponent().getyCoord() && eb.getMovementComponent().getyCoord() < pb.getMovementComponent().getyCoord() + BulletHeight)) {
-                        System.out.println("destroy bullet");
-                        EB.remove(eb);
-                        i--;
-                        PB.remove(pb);
-                        j--;
-                    }
-                }
-
-                // EB <-> rand
-                if (eb.getMovementComponent().getyCoord() > GameHeight || eb.getMovementComponent().getyCoord() < -5) {
-                    EB.remove(eb);
-                    listmov.remove(eb.getMovementComponent());
-                    System.out.println(i);
-                    i--;
-                }
-
-            }
-
-            // collision PB
-            // PB <-> rand
-            for(i=0;i<PB.size();i++){
-                PlayerBullet pb = PB.get(i);
-                if (pb.getMovementComponent().getyCoord() > GameHeight || pb.getMovementComponent().getyCoord() < -1*BulletHeight) {
-                    PB.remove(pb);
-                    listmov.remove(pb.getMovementComponent());
-                    i--;
-                    System.out.println("bulletrand");
-                }
-            // PB <-> Fr
-                if(Fr!=null){
-                    if((((pb.getMovementComponent().getxCoord() + BulletWidth)>Fr.getMovementComponent().getxCoord()) && (pb.getMovementComponent().getxCoord()<(Fr.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
-                            (((pb.getMovementComponent().getyCoord()+BulletHeight)>Fr.getMovementComponent().getyCoord()) && (pb.getMovementComponent().getyCoord()<(Fr.getMovementComponent().getyCoord()+EnemyshipHeight)))) {
-                        bonusactive = true;
-                        System.out.println("hit friendly");
-                        score = score - 10;
-                        F.updatescore(score);
-                        System.out.println("score : "+ score);
-
-                        listmov.remove(pb.getMovementComponent());
-                        PB.remove(i);
-                        i--;
-                        pb = null;
-                        // remove Friendly
-                        listmov.remove(Fr.getMovementComponent());
-
-                        // create Enemy
-                        FrEs = F.createEnemyship(100,Fr.getMovementComponent().getxCoord(),Fr.getMovementComponent().getyCoord(),0,0);
-                        Fr = null;
-                        listmov.add(FrEs.getMovementComponent());
-                    }
-                }
-            // PB <-> FrEs
-                if(FrEs!=null & pb != null){
-                    if((((pb.getMovementComponent().getxCoord() + BulletWidth)>FrEs.getMovementComponent().getxCoord()) && (pb.getMovementComponent().getxCoord()<(FrEs.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
-                            (((pb.getMovementComponent().getyCoord()+BulletHeight)>FrEs.getMovementComponent().getyCoord()) && (pb.getMovementComponent().getyCoord()<(FrEs.getMovementComponent().getyCoord()+EnemyshipHeight)))) {
-                        System.out.println("hit Frenemy");
-                        FrEs.setHP(FrEs.getHP()-pb.getDamage());
-                        PB.remove(pb);
-                        listmov.remove(pb.getMovementComponent());
-                        i--;
-                        System.out.println(FrEs.getHP());
-                        if(FrEs.getHP()<=0) {
-                            System.out.println("destroyed Frenemy");
-                            listmov.remove(FrEs.getMovementComponent());
-                            FrEs = null;
-                            bonusactive = false;
-                        }
-                    }
-                }
-            }
-            // collision bonus
-
-            // collision Fr
-            if(Fr != null) {
-                // Fr <-> PS
-                if((((PS.getMovementComponent().getxCoord() + PlayershipWidth)>Fr.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord()<(Fr.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
-                        (((PS.getMovementComponent().getyCoord()+PlayershipHeight)>Fr.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord()<(Fr.getMovementComponent().getyCoord()+EnemyshipHeight)))){
-                    PS.setHP(0);
-                    System.out.println("game over");
-                    End();
-                }
-                // Fr <-> rand
-                if (Fr.getMovementComponent().getyCoord() + EnemyshipHeight >= GameHeight) {  //bottom
-                    System.out.println("Friendly Enemy ship passed");
-                    listmov.remove(Fr.getMovementComponent());
-                    Fr = null;
-                    bonusactive = false;
-                }
-
-            }
-
-            // collision Bx
-            if(Bx != null) {
-                // Bx <-> PS
-                if ((((PS.getMovementComponent().getxCoord() + PlayershipWidth) > Bx.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord() < (Bx.getMovementComponent().getxCoord() + boxWidth))) &&   // x-coordinaten vallen samen
-                        (((PS.getMovementComponent().getyCoord() + PlayershipHeight) > Bx.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord() < (Bx.getMovementComponent().getyCoord() + boxHeight)))) {
-                    if(Bx.getNumber()==2){
-                        bullet2xtime = 50; // 50 bullets
-                        System.out.println("box bx2 taken");
-                    }
-                    else if(Bx.getNumber()==3){
-                        bullet3xtime = 35; // 35 bullets
-                        System.out.println("box bx3 taken");
-                    }
-
-                    listmov.remove(Bx.getMovementComponent());
-                    Bx = null;
-                    bonusactive = false;
-
-                }
-            }
-            // Bx <-> rand
-            if(Bx != null){
-                if (Bx.getMovementComponent().getyCoord() + boxHeight >= GameHeight) {  //bottom
-                    System.out.println("box bx2 passed");
-                    listmov.remove(Bx.getMovementComponent());
-                    Bx = null;
-                    bonusactive = false;
-                }
-            }
-
-            // collisions BoxDamageBullet: BDB
-            if(BDB != null) {
-                // BDB <-> PS
-                if ((((PS.getMovementComponent().getxCoord() + PlayershipWidth) > BDB.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord() < (BDB.getMovementComponent().getxCoord() + boxWidth))) &&   // x-coordinaten vallen samen
-                        (((PS.getMovementComponent().getyCoord() + PlayershipHeight) > BDB.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord() < (BDB.getMovementComponent().getyCoord() + boxHeight)))) {
-                    damageBulletTime = 500;
-                    System.out.println("collision BDB PS time: "+ damageBulletTime);
-                    listmov.remove(BDB.getMovementComponent());
-                    BDB = null;
-                    bonusactive = false;
-
-                }
-            }
-            // BDB <-> rand
-            if(BDB != null){
-                if (BDB.getMovementComponent().getyCoord() + boxHeight >= GameHeight) {  //bottom
-                    System.out.println("box blubullet passed");
-                    listmov.remove(BDB.getMovementComponent());
-                    BDB = null;
-                    bonusactive = false;
-                }
-            }
+            checkcollisions();
 
 
 
@@ -558,44 +337,13 @@ public class Game {
             F.updatescore(score);
             F.updatehp(PS.getHP());
 
-        //visualise components
-            // visualise Enemy ships
-            for (EnemyShip es : ES) {
-                es.visualise();
-            }
-            // visualise Player Bullets
-            if (!PB.isEmpty()) {
-                for (PlayerBullet pb : PB) {
-                    pb.visualise();
-                }
-            }
-            //visualise Enemy bullets
-            for (EnemyBullet eb :EB) {
-                eb.visualise();
-            }
-            //Playership visualise
-            PS.visualise();
-            // Friendly visualise
-            if(Fr!=null) {
-                Fr.visualise();
-            }
-            if(FrEs!=null){
-                FrEs.visualise();
-            }
-            if(Bx != null){
-                Bx.visualise();
-            }
-            if(BDB != null){
-                BDB.visualise();
-            }
-            F.render();
+            //visualise components
+            visualise();
 
-        // delay
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+
+            timer.end(); // end timer
+            timer.delay(delay);
+
         }
 
 
@@ -605,15 +353,12 @@ public class Game {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     public ArrayList<EnemyShip> createESlist() {
         ArrayList<EnemyShip> ES = new ArrayList<>();
         for (int j = 0; j<3;j++) {
             for (int i = 0; i < 6; i++) {
-                EnemyShip es = F.createEnemyship(50, (int) (i * 1.3 * PlayershipWidth), EnemyshipHeight+EnemyshipHeight*j, 3, 0);
+                EnemyShip es = F.createEnemyship(30, (int) (i * 1.3 * PlayershipWidth), EnemyshipHeight+EnemyshipHeight*j, GameWidth/2000, 0); //dx default 5
                 ES.add(es);
                 listmov.add(es.getMovementComponent());
             }
@@ -624,19 +369,17 @@ public class Game {
     public void Enemyshipsetdirection(int direction){
         for(int i = 0; i<ES.size();i++){
             EnemyShip es = ES.get(i);
-            es.setMovementComponent(es.getMovementComponent().getxCoord()+direction*2,es.getMovementComponent().getyCoord()+EnemyshipHeight,direction,0);
+            es.setMovementComponent(es.getMovementComponent().getxCoord()+direction*2,es.getMovementComponent().getyCoord()+EnemyshipHeight,direction*GameWidth/2000,0); // dx default -5 or 5
         }
     }
 
 
     public void first(){
-        System.out.println("first game");
         F.first();
-        System.out.println(" na first java");
+        // check if enter is pressed before starting
         while(!isRunning){
             if (input.inputAvailable()) {
                 key = input.getInput();
-                System.out.println("pressed key");
                 System.out.println(key);
                 if (key == ENTER) {
                     isRunning = true;
@@ -665,7 +408,10 @@ public class Game {
         System.out.println("Game over");
 
         ArrayList<String> scorelist= new ArrayList<>();
+
+
         try {
+            //read scorebord.txt
             System.out.println("read: ");
             Scanner in = new Scanner(new File("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt"));
             while(in.hasNextLine()) {
@@ -673,8 +419,8 @@ public class Game {
                 String[] words = currentLine.split(" ");
                 System.out.println(currentLine);
 
-                if((score>Integer.parseInt(words[1]) & !added)){
-                    name = readname();
+                if((score>Integer.parseInt(words[1]) & !added)){ //player on scorebord
+                    name = readname(); // read name
                     System.out.println(score + " ;;; "+ Integer.parseInt(words[1]));
                     scorelist.add(name + " " + score);
                     added = true;
@@ -691,7 +437,7 @@ public class Game {
             }
 
 
-
+            // write updated list back to scorebord.txt
             System.out.println("write: ");
             FileWriter myWriter = new FileWriter("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt");
             for(String line: scorelist){
@@ -704,6 +450,7 @@ public class Game {
         catch (IOException ex) {
             Thread.currentThread().interrupt();
         }
+        // player must give his name -> make gameoverscreen
         if (name.equals("name")) {
             gameover();
         }
@@ -717,13 +464,14 @@ public class Game {
         Fr = null;
         FrEs = null;
 
-        scorebord(scorelist);
+        scorebord(scorelist); // make scorebord
     }
 
     public void gameover(){
         System.out.println("gameoverfuncite");
         F.gameover();
         boolean keyinput = false;
+        // wait for enter
         while (!keyinput) {
             if (input.inputAvailable()) {
                 key = input.getInput();
@@ -742,9 +490,10 @@ public class Game {
     }
 
     public void scorebord(ArrayList<String> scorelist){
-        F.scorebord(scorelist);
+        F.scorebord(scorelist); // make scorebord on screen
         F.render();
         System.out.println("uit java2d. scorebord");
+        // wait fo renter before restart
         while(!isRunning){
             if (input.inputAvailable()) {
                 key = input.getInput();
@@ -770,7 +519,7 @@ public class Game {
     }
 
 
-
+// read name
     public String readname() {
         F.readname();
         System.out.println("readname");
@@ -895,6 +644,7 @@ public class Game {
                         enter = true;
                         break;
                 }
+                // length of name max 9 characters
                 if(name.length()>9) {
                     System.out.println("Backspace");
                     name = name.substring(0, name.length() - 1);
@@ -910,10 +660,10 @@ public class Game {
         return name;
     }
 
-
+// initialise game objects
     public void initialise(){
         score =0;
-        PS = F.createPlayership(PlayershipHeight);
+        PS = F.createPlayership(PlayershipHeight,PlayershipWidth,GameWidth,GameHeight);
         PB = new ArrayList<>();
         EB = new ArrayList<>();
         isRunning = true;
@@ -923,5 +673,276 @@ public class Game {
         ES = createESlist();
         movup.update(listmov);
     }
+
+    // check collisions
+    public void checkcollisions(){
+        int i,j;
+        ArrayList<EnemyShip> listremovees;
+        listremovees = new ArrayList<>();
+        // collisions
+        // collisions ES
+        for(i=0; i<ES.size();i++){
+            EnemyShip es = ES.get(i);
+            // ES <-> PS
+            if((((PS.getMovementComponent().getxCoord() + PlayershipWidth)>es.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord()<(es.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
+                    (((PS.getMovementComponent().getyCoord()+PlayershipHeight)>es.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord()<(es.getMovementComponent().getyCoord()+EnemyshipHeight)))){
+                PS.setHP(0);
+                System.out.println("game over");
+                End();
+            }
+
+            // ES <-> PB
+            for(j=0; j<PB.size();j++){
+                PlayerBullet pb = PB.get(j);
+                if((((pb.getMovementComponent().getxCoord() + BulletWidth)>es.getMovementComponent().getxCoord()) && (pb.getMovementComponent().getxCoord()<(es.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
+                        (((pb.getMovementComponent().getyCoord()+BulletHeight)>es.getMovementComponent().getyCoord()) && (pb.getMovementComponent().getyCoord()<(es.getMovementComponent().getyCoord()+EnemyshipHeight)))){   // y-coordinaat vallen samen
+                    System.out.println("hit");
+                    es.setHP(es.getHP()-pb.getDamage());
+                    PB.remove(j);
+                    listmov.remove(pb.getMovementComponent());
+                    j--;
+                    System.out.println(es.getHP());
+                    if(es.getHP()<=0) {
+                        System.out.println("ES destroyed");
+                        score++;
+                        F.updatescore(score);
+                        listremovees.add(es);
+                        System.out.println("added es to listremovees");
+                    }
+
+
+                }
+            }
+            // ES <-> rand
+            if(!EsHitSide) {
+                if (es.getMovementComponent().getxCoord() <= 0) { // left side
+                    Enemyshipsetdirection(1);
+                    EsHitSide = true;
+                }
+                if (es.getMovementComponent().getxCoord() + EnemyshipWidth >= GameWidth) { // right side
+                    Enemyshipsetdirection(-1);
+                    EsHitSide = true;
+                }
+                if (es.getMovementComponent().getyCoord() + EnemyshipHeight >= GameHeight) {  //bottom
+                    System.out.println("Enemy ship passed");
+                    System.out.println("game over");
+                    End();
+                }
+            }
+
+
+        }
+        //remove es
+        for(EnemyShip es: listremovees){
+            System.out.println("enemyship in listremovees");
+            ES.remove(es);
+            listmov.remove(es.getMovementComponent());
+        }
+        listremovees.clear();
+
+        // collisions EB
+        for(i = 0;i<EB.size();i++){
+            EnemyBullet eb = EB.get(i);
+
+
+            // EB <-> PS
+            if ((eb.getMovementComponent().getxCoord()+BulletWidth>PS.getMovementComponent().getxCoord()&& eb.getMovementComponent().getxCoord()<PS.getMovementComponent().getxCoord()+PlayershipWidth) &&
+                    (eb.getMovementComponent().getyCoord()+BulletHeight>PS.getMovementComponent().getyCoord() && eb.getMovementComponent().getyCoord()<PS.getMovementComponent().getyCoord()+PlayershipHeight)){
+                System.out.println("hit playership");
+                PS.setHP(PS.getHP()-eb.getDamage());
+                EB.remove(eb);
+                listmov.remove(eb.getMovementComponent());
+                i--;
+                if(PS.getHP()<=0){
+                    System.out.println("destroyed ps: game over");
+                    End();
+                }
+            }
+
+            // EB <-> PB
+            for(j = 0; j<PB.size();j++) {
+                PlayerBullet pb = PB.get(j);
+                if ((eb.getMovementComponent().getxCoord() + BulletWidth > pb.getMovementComponent().getxCoord() && eb.getMovementComponent().getxCoord() < pb.getMovementComponent().getxCoord() + BulletWidth) &&
+                        (eb.getMovementComponent().getyCoord() + BulletHeight > pb.getMovementComponent().getyCoord() && eb.getMovementComponent().getyCoord() < pb.getMovementComponent().getyCoord() + BulletHeight)) {
+                    System.out.println("destroy bullet");
+                    EB.remove(eb);
+                    i--;
+                    PB.remove(pb);
+                    j--;
+                }
+            }
+
+            // EB <-> rand
+            if (eb.getMovementComponent().getyCoord() > GameHeight || eb.getMovementComponent().getyCoord() < -5) {
+                EB.remove(eb);
+                listmov.remove(eb.getMovementComponent());
+                System.out.println(i);
+                i--;
+            }
+
+        }
+
+        // collision PB
+        // PB <-> rand
+        for(i=0;i<PB.size();i++){
+            PlayerBullet pb = PB.get(i);
+            if (pb.getMovementComponent().getyCoord() > GameHeight || pb.getMovementComponent().getyCoord() < -1*BulletHeight) {
+                PB.remove(pb);
+                listmov.remove(pb.getMovementComponent());
+                i--;
+                System.out.println("bulletrand");
+            }
+            // PB <-> Fr
+            if(Fr!=null){
+                if((((pb.getMovementComponent().getxCoord() + BulletWidth)>Fr.getMovementComponent().getxCoord()) && (pb.getMovementComponent().getxCoord()<(Fr.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
+                        (((pb.getMovementComponent().getyCoord()+BulletHeight)>Fr.getMovementComponent().getyCoord()) && (pb.getMovementComponent().getyCoord()<(Fr.getMovementComponent().getyCoord()+EnemyshipHeight)))) {
+                    bonusactive = true;
+                    System.out.println("hit friendly");
+                    score = score - 10;
+                    F.updatescore(score);
+                    System.out.println("score : "+ score);
+
+                    listmov.remove(pb.getMovementComponent());
+                    PB.remove(i);
+                    i--;
+                    pb = null;
+                    // remove Friendly
+                    listmov.remove(Fr.getMovementComponent());
+
+                    // create Enemy
+                    FrEs = F.createEnemyship(50,Fr.getMovementComponent().getxCoord(),Fr.getMovementComponent().getyCoord(),0,0);
+                    Fr = null;
+                    listmov.add(FrEs.getMovementComponent());
+                }
+            }
+            // PB <-> FrEs
+            if(FrEs!=null & pb != null){
+                if((((pb.getMovementComponent().getxCoord() + BulletWidth)>FrEs.getMovementComponent().getxCoord()) && (pb.getMovementComponent().getxCoord()<(FrEs.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
+                        (((pb.getMovementComponent().getyCoord()+BulletHeight)>FrEs.getMovementComponent().getyCoord()) && (pb.getMovementComponent().getyCoord()<(FrEs.getMovementComponent().getyCoord()+EnemyshipHeight)))) {
+                    System.out.println("hit Frenemy");
+                    FrEs.setHP(FrEs.getHP()-pb.getDamage());
+                    PB.remove(pb);
+                    listmov.remove(pb.getMovementComponent());
+                    i--;
+                    System.out.println(FrEs.getHP());
+                    if(FrEs.getHP()<=0) {
+                        System.out.println("destroyed Frenemy");
+                        listmov.remove(FrEs.getMovementComponent());
+                        FrEs = null;
+                        bonusactive = false;
+                    }
+                }
+            }
+        }
+        // collision bonus
+
+        // collision Fr
+        if(Fr != null) {
+            // Fr <-> PS
+            if((((PS.getMovementComponent().getxCoord() + PlayershipWidth)>Fr.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord()<(Fr.getMovementComponent().getxCoord() + EnemyshipWidth) ))  &&   // x-coordinaten vallen samen
+                    (((PS.getMovementComponent().getyCoord()+PlayershipHeight)>Fr.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord()<(Fr.getMovementComponent().getyCoord()+EnemyshipHeight)))){
+                PS.setHP(0);
+                System.out.println("game over");
+                End();
+            }
+            // Fr <-> rand
+            if (Fr.getMovementComponent().getyCoord() + EnemyshipHeight >= GameHeight) {  //bottom
+                System.out.println("Friendly Enemy ship passed");
+                listmov.remove(Fr.getMovementComponent());
+                Fr = null;
+                bonusactive = false;
+            }
+
+        }
+
+        // collision Bx
+        if(Bx != null) {
+            // Bx <-> PS
+            if ((((PS.getMovementComponent().getxCoord() + PlayershipWidth) > Bx.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord() < (Bx.getMovementComponent().getxCoord() + boxWidth))) &&   // x-coordinaten vallen samen
+                    (((PS.getMovementComponent().getyCoord() + PlayershipHeight) > Bx.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord() < (Bx.getMovementComponent().getyCoord() + boxHeight)))) {
+                if(Bx.getNumber()==2){
+                    bullet2xtime = 50; // 50 bullets
+                    System.out.println("box bx2 taken");
+                }
+                else if(Bx.getNumber()==3){
+                    bullet3xtime = 35; // 35 bullets
+                    System.out.println("box bx3 taken");
+                }
+
+                listmov.remove(Bx.getMovementComponent());
+                Bx = null;
+                bonusactive = false;
+
+            }
+        }
+        // Bx <-> rand
+        if(Bx != null){
+            if (Bx.getMovementComponent().getyCoord() + boxHeight >= GameHeight) {  //bottom
+                System.out.println("box bx2 passed");
+                listmov.remove(Bx.getMovementComponent());
+                Bx = null;
+                bonusactive = false;
+            }
+        }
+
+        // collisions BoxDamageBullet: BDB
+        if(BDB != null) {
+            // BDB <-> PS
+            if ((((PS.getMovementComponent().getxCoord() + PlayershipWidth) > BDB.getMovementComponent().getxCoord()) && (PS.getMovementComponent().getxCoord() < (BDB.getMovementComponent().getxCoord() + boxWidth))) &&   // x-coordinaten vallen samen
+                    (((PS.getMovementComponent().getyCoord() + PlayershipHeight) > BDB.getMovementComponent().getyCoord()) && (PS.getMovementComponent().getyCoord() < (BDB.getMovementComponent().getyCoord() + boxHeight)))) {
+                damageBulletTime = 500;
+                System.out.println("collision BDB PS time: "+ damageBulletTime);
+                listmov.remove(BDB.getMovementComponent());
+                BDB = null;
+                bonusactive = false;
+
+            }
+        }
+        // BDB <-> rand
+        if(BDB != null){
+            if (BDB.getMovementComponent().getyCoord() + boxHeight >= GameHeight) {  //bottom
+                System.out.println("box blubullet passed");
+                listmov.remove(BDB.getMovementComponent());
+                BDB = null;
+                bonusactive = false;
+            }
+        }
+    }
+
+    //visualise components
+    public void visualise(){
+
+        // visualise Enemy ships
+        for (EnemyShip es : ES) {
+            es.visualise();
+        }
+        // visualise Player Bullets
+        if (!PB.isEmpty()) {
+            for (PlayerBullet pb : PB) {
+                pb.visualise();
+            }
+        }
+        //visualise Enemy bullets
+        for (EnemyBullet eb :EB) {
+            eb.visualise();
+        }
+        //Playership visualise
+        PS.visualise();
+        // Friendly visualise
+        if(Fr!=null) {
+            Fr.visualise();
+        }
+        if(FrEs!=null){
+            FrEs.visualise();
+        }
+        if(Bx != null){
+            Bx.visualise();
+        }
+        if(BDB != null){
+            BDB.visualise();
+        }
+        F.render();
+    }
+
 
 }
