@@ -637,6 +637,8 @@ public class Game {
 // initialise game objects
     public void initialise(){
         score =0;
+        level = 1;
+        F.updateLevel(level);
         PS = F.createPlayerShip(PlayershipHeight,PlayershipWidth,GameWidth,GameHeight);
         PB = new ArrayList<>();
         EB = new ArrayList<>();
