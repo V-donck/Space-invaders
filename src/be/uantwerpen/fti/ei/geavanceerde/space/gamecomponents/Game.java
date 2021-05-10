@@ -145,7 +145,7 @@ public class Game {
         // initialise some variables
         int teller = 0;
 
-        int randomvalue = (int) (Math.random()*tellermax);
+        int randomvalue = 100;/////////////////////////////////////////////////(int) (Math.random()*tellermax);
         int randomvalue2;
 
 
@@ -242,30 +242,30 @@ public class Game {
             // bonus
             if(teller == randomvalue & !bonusactive){ // bonus
                 System.out.println("teller = randomvalue");
-                randomvalue2 =  (int) (Math.random()*5);
+                randomvalue2 =  2;//////////////////////////////////////////////////////////////////////////////////////////////(int) (Math.random()*5);
                 System.out.println("randomvalue2: " + randomvalue2);
                 // randomvalue2 = 0 -> no bonus
                 if(randomvalue2 ==1) { // friendly
                     bonusactive = true;
-                    Fr = F.createFriendly((int) (Math.random()*(GameWidth)-EnemyshipWidth));
+                    Fr = F.createFriendly((int) (Math.random()*(GameWidth-EnemyshipWidth)));
                     System.out.println("create friendly");
                     listmov.add(Fr.getMovementComponent());
                 }
                 else if(randomvalue2 == 2){ // bulletx2
                     bonusactive = true;
-                    Bx = F.createBulletx(2,(int) (Math.random()*GameWidth));
+                    Bx = F.createBulletx(2,(int) (Math.random()*(GameWidth-boxWidth)));
                     System.out.println("create bx2");
                     listmov.add(Bx.getMovementComponent());
                 }
                 else if(randomvalue2 == 3){ // bulletx3
                     bonusactive = true;
-                    Bx = F.createBulletx(3,(int) (Math.random()*GameWidth));
+                    Bx = F.createBulletx(3,(int) (Math.random()*(GameWidth-boxWidth)));
                     System.out.println("create bx3");
                     listmov.add(Bx.getMovementComponent());
                 }
                 else if(randomvalue2 == 4){ // damagebulletbox
                     bonusactive = true;
-                    BDB = F.createBoxDamageBullet((int) (Math.random()*GameWidth));
+                    BDB = F.createBoxDamageBullet((int) (Math.random()*(GameWidth-boxWidth)));
                     System.out.println("created boxdamagebullet");
                     listmov.add(BDB.getMovementComponent());
                 }
