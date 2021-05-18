@@ -1,10 +1,11 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
+/**
+ * super class of every class
+ */
 abstract public class Entity {
 
     private MovementComponent movcomp;
-    private int height;
-    private int width;
 
 
     /**
@@ -27,40 +28,10 @@ abstract public class Entity {
     }
 
     /**
+     * get MovementComponent
      * @return {@link MovementComponent} movecomp
      */
     public MovementComponent getMovementComponent(){
         return movcomp;
     }
-
-// dit alles weg?????
-    // en dus ook height en width in entity?
-    /**
-     * @return height
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * @return width
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * @param height set Height
-     */
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    /**
-     * @param width set Width
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
 }

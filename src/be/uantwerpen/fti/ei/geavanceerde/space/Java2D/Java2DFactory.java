@@ -245,17 +245,17 @@ public class Java2DFactory extends AbstractFactory {
 
 
 
-    public PlayerShip createPlayerShip(int playershipHeight, int playershipWidth, int GameWidth, int GameHeight){
-        return new Java2DPlayerShip(this,playershipHeight,playershipWidth, GameWidth, GameHeight);
+    public PlayerShip createPlayerShip(int playershipHeight, int GameWidth, int GameHeight){
+        return new Java2DPlayerShip(this,playershipHeight, GameWidth, GameHeight);
     }
 
     public Java2DPlayerBullet createPlayerBullet(int damage, int x, int y, int dx, int dy){
         return new Java2DPlayerBullet(this, damage, x,y,dx,dy);
     }
-
+/*
     public EnemyShip createEnemyShip(){
         return new Java2DEnemyShip(this);
-    }
+    }*/
 
     public EnemyShip createEnemyShip(int HP, int x, int y, int dx, int dy,int level) {
         return new Java2DEnemyShip(this, HP,x, y, dx, dy, level);

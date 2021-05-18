@@ -1,10 +1,13 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
+/**
+ * EnemyShip shoots this bullet
+ */
 abstract public class EnemyBullet extends Bullet {
 
     /**
      * creates EnemyBullet
-     * @param damage super: {@link Bullet}
+     * @param damage damage for super: {@link Bullet}
      * @param x for set {@link MovementComponent}
      * @param y for set {@link MovementComponent}
      * @param dx for set {@link MovementComponent}
@@ -16,7 +19,7 @@ abstract public class EnemyBullet extends Bullet {
     }
 
     /**
-     * abstract: visualises EnemyBullet
+     * visualises EnemyBullet
      */
     public abstract void visualise();
 }

@@ -1,5 +1,8 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
+/**
+ * bonusbox : bullets can have more damage
+ */
 abstract public class BoxDamageBullet extends BonusEntity{
     /**
      * create BoxDamageBullet
@@ -11,7 +14,7 @@ abstract public class BoxDamageBullet extends BonusEntity{
     }
 
     /**
-     * abstract: visualise BoxDamageBullet
+     * visualise BoxDamageBullet
      */
     abstract public void visualise();
 

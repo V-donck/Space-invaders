@@ -11,12 +11,11 @@ public class Java2DPlayerShip extends PlayerShip {
      * creates Java2DPlayerShip
      * @param F {@link Java2DFactory}: for {@link #visualise()} this {@link Java2DPlayerShip}
      * @param PlayershipHeight super: for creating {@link PlayerShip}
-     * @param PlayershipWidth super: for creating {@link PlayerShip}
      * @param GameWidth super: for creating {@link PlayerShip}
      * @param GameHeight super: for creating {@link PlayerShip}
      */
-    public Java2DPlayerShip(Java2DFactory F, int PlayershipHeight, int PlayershipWidth, int GameWidth, int GameHeight) {
-        super(PlayershipHeight,PlayershipWidth, GameWidth, GameHeight);
+    public Java2DPlayerShip(Java2DFactory F, int PlayershipHeight, int GameWidth, int GameHeight) {
+        super(PlayershipHeight, GameWidth, GameHeight);
         this.F = F;
 
     }

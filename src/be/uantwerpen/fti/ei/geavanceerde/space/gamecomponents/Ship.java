@@ -1,5 +1,8 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
+/**
+ * superclass: Ship
+ */
 abstract public class Ship extends Entity {
     private int HP;
 

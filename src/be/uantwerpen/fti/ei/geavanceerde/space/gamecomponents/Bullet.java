@@ -1,5 +1,8 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
 
+/**
+ * super class for specific bullets
+ */
 abstract public class Bullet extends Entity{
     private int damage;
 

@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 import static be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Input.Inputs.ENTER;
 
+/**
+ * Game class: this is the class where all the game calculations are made
+ */
 public class Game {
     private int GameHeight;
     private int GameWidth;
@@ -38,8 +41,6 @@ public class Game {
     private BoxDamageBullet BDB;
     private Timer timer;
     private int tellermax;
-
-
     private int bullet2xTime = 0;
     private int bullet3xTime = 0;
     private int damageBulletTime = 0;
@@ -48,6 +49,14 @@ public class Game {
     int level =1;
 
 
+    /**
+     * creates Game
+     * set some default values: score = 0
+     * set some default objects: create {@link MovementUpdater}
+     *create {@link Input}
+     * create {@link Timer}
+     * @param f {@link AbstractFactory} for creating objects
+     */
     public Game(AbstractFactory f) {
         F = f;
         movup = new MovementUpdater();
@@ -60,6 +69,15 @@ public class Game {
     }
 
 
+    /**
+     * function to start game
+     * set first some default values
+     * read in game configfile
+     * set gamedimensions to factory: {@link AbstractFactory}
+     * create startscreen:
+     * calls initialise
+     * calls loop: gameloop
+     */
     public void start(){
         // default values
         GameWidth = 10000;
@@ -140,12 +158,25 @@ public class Game {
     }
 
 
-
-    void loop() {
+    /**
+     * Gameloop:
+     * first initialise some values <br>
+     * loop: <br>
+     * - set some values<br>
+     * - check inputs<br>
+     * - check bonusses<br>
+     * - Enemies shoot<br>
+     * - call checkcollisions<br>
+     * - update Movementcomponents<br>
+     * - update score and HP<br>
+     * - visualise components<br>
+     * - delay
+     */
+    public void loop() {
         // initialise some variables
         int teller = 0;
 
-        int randomvalue = 100;/////////////////////////////////////////////////(int) (Math.random()*tellermax);
+        int randomvalue = (int) (Math.random()*tellermax);
         int randomvalue2;
 
 
@@ -184,8 +215,6 @@ public class Game {
                 teller++;
             }
 
-
-
             // key inputs
             if (input.inputAvailable()) {
                 key = input.getInput();
@@ -222,14 +251,14 @@ public class Game {
                         case UP:
                             System.out.println("up");
                             if (canshoot) {
-                                PlayershipShoot();
+                                PlayerShipShoot();
                                 canshoot = false;
                             }
                             break;
                         case SPACE:
                             System.out.println("space");
                             if (canshoot) {
-                                PlayershipShoot();
+                                PlayerShipShoot();
                                 canshoot = false;
                             }
                             break;
@@ -242,7 +271,7 @@ public class Game {
             // bonus
             if(teller == randomvalue & !bonusactive){ // bonus
                 System.out.println("teller = randomvalue");
-                randomvalue2 =  2;//////////////////////////////////////////////////////////////////////////////////////////////(int) (Math.random()*5);
+                randomvalue2 = (int) (Math.random()*5);
                 System.out.println("randomvalue2: " + randomvalue2);
                 // randomvalue2 = 0 -> no bonus
                 if(randomvalue2 ==1) { // friendly
@@ -300,10 +329,7 @@ public class Game {
                 canshoot = true;
             }
 
-
             checkcollisions();
-
-
 
             movup.update(listmov); // update movements
             // update score en hp to screen
@@ -313,20 +339,24 @@ public class Game {
             //visualise components
             visualise();
 
-
             timer.end(); // end timer
             timer.delay(delay);
-
         }
-
-
     }
 
+    /**
+     * get score
+     * @return int score
+     */
     public int getScore() {
         return score;
     }
 
 
+    /**
+     * creates list of EnemyShips and set them at the right position
+     * @return ArrayList &lt;{@link EnemyShip}&gt;ES
+     */
     public ArrayList<EnemyShip> createESlist() {
         ArrayList<EnemyShip> ES = new ArrayList<>();
         for (int j = 0; j<3;j++) {
@@ -339,6 +369,10 @@ public class Game {
         return ES;
     }
 
+    /**
+     * set direction of {@link EnemyShip}
+     * @param direction set dx to - or + of {@link EnemyShip}
+     */
     public void Enemyshipsetdirection(int direction){
         for(int i = 0; i<ES.size();i++){
             EnemyShip es = ES.get(i);
@@ -347,6 +381,9 @@ public class Game {
     }
 
 
+    /**
+     * first: set startscreen and wait untill enter is pressed
+     */
     public void first(){
         F.first();
         // check if enter is pressed before starting
@@ -357,10 +394,6 @@ public class Game {
                 if (key == ENTER) {
                     isRunning = true;
                     F.setIsrunning(true);
-                    System.out.println("starting:::::");
-                }
-                else{
-                    System.out.println("wait");
                 }
             }
             try {
@@ -371,26 +404,43 @@ public class Game {
         }
     }
 
+    /**
+     * if gameover, this function is called <br>
+     * - clear all objects
+     * - read scorebord.txt
+     * - check if score is hight enough to be on scorebord
+     *      - if yes: call readname
+     *      - else call gameover
+     * - calls scorebord
+     */
     public void End(){
         isRunning = false;
         F.setIsrunning(false);
+
+
+        // clear all elements
+        PS = null;
+        ES.clear();
+        EB.clear();
+        PB.clear();
+        Bx = null;
+        BDB = null;
+        Fr = null;
+        FrEs = null;
+
         boolean added= false;
         String name;
         name = "name";
-        System.out.println("END");
-        System.out.println("Game over");
 
         ArrayList<String> scorelist= new ArrayList<>();
 
 
         try {
             //read scorebord.txt
-            System.out.println("read: ");
             Scanner in = new Scanner(new File("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt"));
             while(in.hasNextLine()) {
                 String currentLine = in.nextLine();
                 String[] words = currentLine.split(" ");
-                System.out.println(currentLine);
 
                 if((score>Integer.parseInt(words[1]) & !added)){ //player on scorebord
                     name = readname(); // read name
@@ -402,7 +452,6 @@ public class Game {
             }
             if(!added & scorelist.size()<10){
                 name = readname();
-                System.out.println("ofwel slechtste ofwel eerste");
                 scorelist.add(name + " "+ score);
             }
             while(added & scorelist.size() >10){
@@ -411,7 +460,6 @@ public class Game {
 
 
             // write updated list back to scorebord.txt
-            System.out.println("write: ");
             FileWriter myWriter = new FileWriter("C:\\Users\\thijs\\IdeaProjects\\projecttest\\Space-invaders\\src\\resource\\scorebord.txt");
             for(String line: scorelist){
                 System.out.println(line);
@@ -423,24 +471,19 @@ public class Game {
         catch (IOException ex) {
             Thread.currentThread().interrupt();
         }
-        // player must give his name -> make gameoverscreen
+        // player must not give his name -> make gameoverscreen
         if (name.equals("name")) {
             gameover();
         }
-        // clear all elements
-        PS = null;
-        ES.clear();
-        EB.clear();
-        PB.clear();
-        Bx = null;
-        BDB = null;
-        Fr = null;
-        FrEs = null;
-
 
         scorebord(scorelist); // make scorebord
     }
 
+
+    /**
+     * gameover: calls F.gameover (create gameoverscreen)
+     * waits untill enter is pressed.
+     */
     public void gameover(){
         System.out.println("gameoverfuncite");
         F.gameover();
@@ -452,7 +495,6 @@ public class Game {
                 System.out.println(key);
                 if(key == ENTER) {
                     keyinput = true;
-                    System.out.println("verder!!!");
                 }
             }
             try {
@@ -463,25 +505,28 @@ public class Game {
         }
     }
 
+
+    /**
+     * sends scorelist to factory for creating scorebord on screen <br>
+     * restart after enter is pressed:<br>
+     *     - initialise
+     *     - loop
+     *
+     * @param scorelist list of names and scores
+     */
     public void scorebord(ArrayList<String> scorelist){
         F.scorebord(scorelist); // make scorebord on screen
         F.render();
-        System.out.println("uit java2d. scorebord");
-        // wait fo renter before restart
+        // wait for enter before restart
         while(!isRunning){
             if (input.inputAvailable()) {
                 key = input.getInput();
-                System.out.println("pressed key");
                 System.out.println(key);
                 if (key == ENTER) {
                     isRunning = true;
                     F.setIsrunning(isRunning);
-                    System.out.println("starting:::::");
                     initialise();
                     loop();
-                }
-                else{
-                    System.out.println("wait");
                 }
             }
             try {
@@ -493,10 +538,12 @@ public class Game {
     }
 
 
-// read name
+    /**
+     * reads name from input
+     * @return string name
+     */
     public String readname() {
         F.readName();
-        System.out.println("readname");
         boolean enter = false;
         String name="";
         while (!enter) {
@@ -620,7 +667,6 @@ public class Game {
                 }
                 // length of name max 9 characters
                 if(name.length()>9) {
-                    System.out.println("Backspace");
                     name = name.substring(0, name.length() - 1);
                 }
             }
@@ -634,12 +680,14 @@ public class Game {
         return name;
     }
 
-// initialise game objects
+    /**
+     * initialise game objects
+     */
     public void initialise(){
         score =0;
         level = 1;
         F.updateLevel(level);
-        PS = F.createPlayerShip(PlayershipHeight,PlayershipWidth,GameWidth,GameHeight);
+        PS = F.createPlayerShip(PlayershipHeight,GameWidth,GameHeight);
         PB = new ArrayList<>();
         EB = new ArrayList<>();
         isRunning = true;
@@ -650,7 +698,31 @@ public class Game {
         movup.update(listmov);
     }
 
-    // check collisions
+    /**
+     * check collisions<br>
+     *     -EnemyShip<br>
+     *         + EnemyShip - PlayerShip<br>
+     *         + EnemyShip - PlayerBullet<br>
+     *         + EnemyShip - rand<br>
+     *     -EnemyBullet<br>
+     *         + EnemyBullet - PlayerShip<br>
+     *         + EnemyBullet - PlayerBullet<br>
+     *         + EnemyBullet - rand<br>
+     *     -PlayerBullet<br>
+     *         + Playerbullet - rand<br>
+     *         + Playerbullet - Friendly<br>
+     *         + PlayerBullet - FriendlyEnemyShip<br>
+     *     -Friendly<br>
+     *         + Friendly - PlayerShip<br>
+     *         + Friendly - rand<br>
+     *     -Bulletx<br>
+     *         + Bulletx - PlayerShip<br>
+     *         + Bulletx - rand<br>
+     *     -BoxDamageBullet<br>
+     *         + BoxDamageBullet - PlayerShip<br>
+     *         + BoxDamageBullet - rand<br>
+     */
+
     public void checkcollisions(){
         int i,j;
         ArrayList<EnemyShip> listremovees;
@@ -885,7 +957,9 @@ public class Game {
         }
     }
 
-    //visualise components
+    /**
+     * visualise all objects
+     */
     public void visualise(){
 
         // visualise Enemy ships
@@ -921,7 +995,10 @@ public class Game {
     }
 
 
-    public void PlayershipShoot(){
+    /**
+     * PlayerShip shoots: check if 1, 2 or 3 bullets, create {@link PlayerBullet}
+     */
+    public void PlayerShipShoot(){
         // bonus bullet3xTime active?
         if(bullet3xTime > 0){ // PS shoots 3 bullets
             bullet3xTime--;
