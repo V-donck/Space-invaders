@@ -16,7 +16,7 @@ abstract public class PlayerShip extends Ship {
     }
 
     /**
-     * abstract: visualise Playership
+     * visualise Playership
      */
     public abstract void visualise();
 

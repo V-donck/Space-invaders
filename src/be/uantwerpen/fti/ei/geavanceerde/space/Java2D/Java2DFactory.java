@@ -347,26 +347,14 @@ public class Java2DFactory extends AbstractFactory {
         g2d.drawImage(Bulletx3Im,(int)(factorxscreen*25),(int)(factoryscreen*540),null);
         g2d.drawString("3 bullets",(int)(factorxscreen*100),(int)(factoryscreen*560));
 
-
-
         this.render();
-        System.out.println("created startscherm");
     }
 
 
 
     public void scorebord(ArrayList<String> scorelist){
-        System.out.println("in java2Dfac scorebord");
-
         Graphics2D g2d = this.getG2d();
-
         g2d.drawImage(backgroundIm,0,0,null);
-
-
-
-
-
-
 
 
         //Font font = new Font("TimesRoman", Font.PLAIN, (int)(factorxF*50));
@@ -399,12 +387,9 @@ public class Java2DFactory extends AbstractFactory {
         g2d.drawImage(EnemyBulletIm,(int)(factorxscreen*340),(int)(factoryscreen*300),null);
         g2d.drawImage(EnemyBulletIm,(int)(factorxscreen*275),(int)(factoryscreen*350),null);
         g2d.drawImage(DamageBulletIm,(int)(factorxscreen*320),(int)(factoryscreen*430),null);
-        System.out.println("teken afbeelding");
         g2d.drawImage(FriendlyIm,(int)(factorxscreen*400),(int)(factoryscreen*300),null);
 
         this.render();
-        System.out.println("render");
-
     }
 
 
