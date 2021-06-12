@@ -1,11 +1,14 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
 import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.EnemyBullet;
-
 import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
 
 import java.awt.*;
 
+/**
+ * EnemyShip shoots this bullet,
+ * Java2D implementation of {@link EnemyBullet}
+ */
 public class Java2DEnemyBullet extends EnemyBullet {
     private Java2DFactory F;
 
@@ -21,21 +24,18 @@ public class Java2DEnemyBullet extends EnemyBullet {
     public Java2DEnemyBullet(Java2DFactory F,int damage, int x, int y, int dx, int dy) {
         super(damage,x,y,dx,dy);
         this.F = F;
-
     }
 
     /**
-     * visualise EnemyBullet
-     * if damage of bullet less than 50 :red bullet
-     * else: purple bullet
+     * visualise EnemyBullet in right colour ( red if damage is less than 50 els purple)
      */
     public void visualise () {
         Graphics2D g2d = F.getG2d();
         if (getDamage() < 50) {
-            g2d.drawImage(F.getEnemyBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorx()), (int) (this.getMovementComponent().getyCoord() * F.getFactory()), null);
+            g2d.drawImage(F.getEnemyBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorX()), (int) (this.getMovementComponent().getyCoord() * F.getFactorY()), null);
         }
         else{
-            g2d.drawImage(F.getEnemyBullet2Im(), (int) (this.getMovementComponent().getxCoord() * F.getFactorx()), (int) (this.getMovementComponent().getyCoord() * F.getFactory()), null);
+            g2d.drawImage(F.getEnemyBullet2Im(), (int) (this.getMovementComponent().getxCoord() * F.getFactorX()), (int) (this.getMovementComponent().getyCoord() * F.getFactorY()), null);
         }
     }
 }

@@ -7,6 +7,7 @@ abstract public class Ship extends Entity {
     private int HP;
 
     /**
+     * creates Ship
      * @param hp hp of Ship
      */
     public Ship(int hp) {
@@ -14,6 +15,7 @@ abstract public class Ship extends Entity {
     }
 
     /**
+     * get hp
      * @return Hp from ship
      */
     public int getHP() {
@@ -21,6 +23,7 @@ abstract public class Ship extends Entity {
     }
 
     /**
+     * set hp
      * @param HP set hp of ship to HP
      */
     public void setHP(int HP) {

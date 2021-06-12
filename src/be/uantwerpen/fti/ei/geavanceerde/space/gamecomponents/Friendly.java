@@ -7,10 +7,10 @@ abstract public class Friendly extends  BonusEntity{
 
     /**
      * creates Friendly
-     * @param xcoord x-coordinate for setting {@link MovementComponent}
+     * @param xCoord x-coordinate for setting {@link MovementComponent}
      */
-    public Friendly(int xcoord) {
-        this.setMovementComponent(xcoord,0,0,10);
+    public Friendly(int xCoord) {
+        this.setMovementComponent(xCoord,0,0,10);
     }
 
     /**

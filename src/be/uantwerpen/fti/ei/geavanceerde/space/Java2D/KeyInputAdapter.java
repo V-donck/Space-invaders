@@ -4,8 +4,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
+/**
+ * keyadapter: reads keyinput
+ */
 public class KeyInputAdapter extends KeyAdapter {
     private LinkedList<Java2DInput.Inputs> keyInputs;
+
+    /**
+     * add pressed key to keyInputs
+     * @param e keycode of pressed key
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int keycode = e.getKeyCode();
@@ -109,16 +117,21 @@ public class KeyInputAdapter extends KeyAdapter {
             case KeyEvent.VK_BACK_SPACE:
                 keyInputs.add(Java2DInput.Inputs.BACKSPACE);
                 break;
-
-
         }
     }
 
+    /**
+     * gets keyInputs
+     * @return list keyInputs
+     */
     public LinkedList<Java2DInput.Inputs> getKeyInputs(){
         return keyInputs;
     }
 
+    /**
+     * creates keyInputAdapter, create linkedlist keyInputs
+     */
     public KeyInputAdapter() {
-        this.keyInputs = new LinkedList<Java2DInput.Inputs>();
+        this.keyInputs = new LinkedList<>();
     }
 }

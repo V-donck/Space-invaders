@@ -11,12 +11,12 @@ abstract public class AbstractFactory {
 
     /**
      * creates a {@link PlayerShip}
-     * @param playershipHeight height of playership
-     * @param GameWidth width of game (for setting ship at right place)
-     * @param GameHeight height of game (for setting ship at right place)
+     * @param playerShipHeight height of playership
+     * @param gameWidth width of game (for setting ship at right place)
+     * @param gameHeight height of game (for setting ship at right place)
      * @return {@link PlayerShip} : returns created {@link PlayerShip}
      */
-    public abstract PlayerShip createPlayerShip(int playershipHeight, int GameWidth, int GameHeight);
+    public abstract PlayerShip createPlayerShip(int playerShipHeight, int gameWidth, int gameHeight);
 
     /**
      * creates a {@link PlayerBullet}
@@ -31,7 +31,7 @@ abstract public class AbstractFactory {
 
     /**
      * creates a {@link EnemyShip}
-     * @param HP hp of {@link Ship}
+     * @param hp hp of {@link Ship}
      * @param x x-coordinate for setting {@link MovementComponent}
      * @param y y-coordinate for setting {@link MovementComponent}
      * @param dx dx for setting {@link MovementComponent}
@@ -39,7 +39,7 @@ abstract public class AbstractFactory {
      * @param level level of {@link EnemyShip}
      * @return {@link EnemyShip}: returns created {@link EnemyShip}
      */
-    public abstract EnemyShip createEnemyShip(int HP, int x, int y, int dx, int dy, int level);
+    public abstract EnemyShip createEnemyShip(int hp, int x, int y, int dx, int dy, int level);
 
     /**
      * creates an {@link EnemyBullet}
@@ -54,42 +54,47 @@ abstract public class AbstractFactory {
 
     /**
      * creates a {@link Friendly}
-     * @param xcoord x-coordinate for setting {@link MovementComponent}
+     * @param xCoord x-coordinate for setting {@link MovementComponent}
      * @return {@link Friendly}: returns created {@link Friendly}
      */
-    public abstract Friendly createFriendly(int xcoord);
+    public abstract Friendly createFriendly(int xCoord);
 
     /**
      * creates a {@link Bulletx}
      * @param number number of bullets 2 or 3
-     * @param xcoord x-coordinate for setting {@link MovementComponent}
+     * @param xCoord x-coordinate for setting {@link MovementComponent}
      * @return {@link Bulletx}: returns created {@link Bulletx}
      */
-    public abstract Bulletx createBulletx(int number, int xcoord);
+    public abstract Bulletx createBulletx(int number, int xCoord);
 
     /**
      * creates a {@link BoxDamageBullet}
-     * @param xcoord x-coordinate for setting {@link MovementComponent}
+     * @param xCoord x-coordinate for setting {@link MovementComponent}
      * @return {@link BoxDamageBullet}: returns created  {@link BoxDamageBullet}
      */
-    public abstract BoxDamageBullet createBoxDamageBullet(int xcoord);
+    public abstract BoxDamageBullet createBoxDamageBullet(int xCoord);
+
+    /**
+     * creates a {@link BoxHp}
+     * @param xCoord x-coordinate for setting {@link MovementComponent}
+     * @return {@link BoxHp}: returns created  {@link BoxHp}
+     */
+    public abstract BoxHp createBoxHp(int xCoord,int hp);
 
 
     // other functions
 
-
     /**
-     * returns factorx
+     * returns factorX
      * @return factorX : factorx = horizontal factor = (ScreenWidth/GameWidth)
      */
-    public abstract double getFactorx();
+    public abstract double getFactorX();
 
     /**
-     * returns factory
-     * @return  factory: factory = vertical factor = (ScreenHeight/GameHeight)
+     * returns factorY
+     * @return  factorY: factorY = vertical factor = (ScreenHeight/GameHeight)
      */
-    public abstract double getFactory();
-
+    public abstract double getFactorY();
 
     /**
      * creates inputclass: {@link Input}
@@ -99,19 +104,19 @@ abstract public class AbstractFactory {
 
     /**
      * Set all game dimensions:
-     * @param GameWidth set GameWidth
-     * @param GameHeight set GameHeight
-     * @param GamePlayerShipWidth set GamePlayerShipWidth
-     * @param GamePlayerShipHeight set GamePlayerShipHeigth
-     * @param BulletWidth set BulletWidth
-     * @param BulletHeight set BulletHeight
-     * @param EnemyShipWidth set EnemyShipWidth
-     * @param EnemyShipHeight set EnemyShipHeight
+     * @param gameWidth set GameWidth
+     * @param gameHeight set GameHeight
+     * @param gamePlayerShipWidth set GamePlayerShipWidth
+     * @param gamePlayerShipHeight set GamePlayerShipHeigth
+     * @param bulletWidth set BulletWidth
+     * @param bulletHeight set BulletHeight
+     * @param enemyShipWidth set EnemyShipWidth
+     * @param enemyShipHeight set EnemyShipHeight
      * @param boxWidth set boxWidth
      * @param boxHeight set boxHeight
      * @param score set score
      */
-    public abstract void setGameDimensions(int GameWidth, int GameHeight, int GamePlayerShipWidth, int GamePlayerShipHeight, int BulletWidth, int BulletHeight, int EnemyShipWidth, int EnemyShipHeight, int boxWidth, int boxHeight,     int score);
+    public abstract void setGameDimensions(int gameWidth, int gameHeight, int gamePlayerShipWidth, int gamePlayerShipHeight, int bulletWidth, int bulletHeight, int enemyShipWidth, int enemyShipHeight, int boxWidth, int boxHeight, int score);
 
     /**
      * render screen
@@ -122,7 +127,7 @@ abstract public class AbstractFactory {
      * set Isrunning
      * @param ir: boolean isrunning
      */
-    public abstract void setIsrunning(boolean ir);
+    public abstract void setIsRunning(boolean ir);
 
     /**
      * updates name to screen
@@ -138,7 +143,7 @@ abstract public class AbstractFactory {
 
     /**
      * updates HP to screen
-     * @param HP : int HP of PlayerShip
+     * @param HP : int HP of {@link PlayerShip}
      */
     public abstract void updateHP(int HP);
 
@@ -147,7 +152,6 @@ abstract public class AbstractFactory {
      * @param level : int level
      */
     public abstract void updateLevel(int level);
-
 
     // create screens
 
@@ -168,8 +172,8 @@ abstract public class AbstractFactory {
 
     /**
      * creates scorebord
-     * @param scorelist list of names and scores
+     * @param scoreList list of names and scores
      */
-    public abstract void scorebord(ArrayList<String> scorelist);
+    public abstract void scorebord(ArrayList<String> scoreList);
 
 }

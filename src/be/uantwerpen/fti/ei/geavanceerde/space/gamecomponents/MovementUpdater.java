@@ -17,12 +17,11 @@ public class MovementUpdater {
      * @param list ArrayList&lt;{@link MovementComponent}&gt;
      * @return updated list ArrayList&lt;{@link MovementComponent}&gt;
      */
-    ArrayList<MovementComponent> update(ArrayList<MovementComponent> list){
-        for(int i = 0; i< list.size(); i++) {
-            list.get(i).setxCoord(list.get(i).getxCoord() + list.get(i).getDx());
-            list.get(i).setyCoord(list.get(i).getyCoord() + list.get(i).getDy());
+    public ArrayList<MovementComponent> update(ArrayList<MovementComponent> list){
+        for (MovementComponent movementComponent : list) {
+            movementComponent.setxCoord(movementComponent.getxCoord() + movementComponent.getDx());
+            movementComponent.setyCoord(movementComponent.getyCoord() + movementComponent.getDy());
         }
         return list;
     }
-
 }

@@ -4,9 +4,7 @@ package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
  * super class of every class
  */
 abstract public class Entity {
-
     private MovementComponent movcomp;
-
 
     /**
      * generate Entity

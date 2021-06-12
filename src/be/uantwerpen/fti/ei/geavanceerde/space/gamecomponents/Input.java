@@ -8,9 +8,11 @@ import java.util.LinkedList;
  * abstract class input
  */
 abstract public class Input {
+    /**
+     * group of all keys that can be pressed in this case
+     */
     public enum Inputs {LEFT, RIGHT, UP, DOWN, SPACE, ENTER,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,BACKSPACE}
     private LinkedList<Inputs> keyInputs;
-
 
     /**
      * creates Input
@@ -28,6 +30,4 @@ abstract public class Input {
      * @return Inputs
      */
     abstract public Inputs getInput();
-
-
 }

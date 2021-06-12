@@ -4,6 +4,10 @@ import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
 
 import java.awt.*;
 
+/**
+ * Player shoots this Bullet,
+ * Java2D implementation of {@link PlayerBullet}
+ */
 public class Java2DPlayerBullet extends PlayerBullet{
     private Java2DFactory F;
 
@@ -19,7 +23,6 @@ public class Java2DPlayerBullet extends PlayerBullet{
     public Java2DPlayerBullet(Java2DFactory F,int damage, int x, int y, int dx, int dy) {
         super(damage,x,y,dx,dy);
         this.F = F;
-
     }
 
     /**
@@ -30,11 +33,10 @@ public class Java2DPlayerBullet extends PlayerBullet{
     public void visualise (){
         Graphics2D g2d = F.getG2d();
         if(this.getDamage()>=50){
-            g2d.drawImage(F.getDamageBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorx()), (int) (this.getMovementComponent().getyCoord() * F.getFactory()), null);
+            g2d.drawImage(F.getDamageBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorX()), (int) (this.getMovementComponent().getyCoord() * F.getFactorY()), null);
         }
         else {
-            g2d.drawImage(F.getPlayerBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorx()), (int) (this.getMovementComponent().getyCoord() * F.getFactory()), null);
-
+            g2d.drawImage(F.getPlayerBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorX()), (int) (this.getMovementComponent().getyCoord() * F.getFactorY()), null);
         }
     }
 }

@@ -22,6 +22,4 @@ abstract public class PlayerBullet extends Bullet {
      * visualises PlayerBullet
      */
     public abstract void visualise();
-
-
 }

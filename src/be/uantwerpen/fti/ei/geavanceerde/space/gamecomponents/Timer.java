@@ -42,5 +42,4 @@ public class Timer {
             Thread.currentThread().interrupt();
         }
     }
-
 }

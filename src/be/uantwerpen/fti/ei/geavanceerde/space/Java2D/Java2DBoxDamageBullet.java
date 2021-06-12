@@ -4,16 +4,20 @@ import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
 
 import java.awt.*;
 
+/**
+ * bonusbox : bullets can have more damage,
+ * this is the java2D implementation of {@link BoxDamageBullet}
+ */
 public class Java2DBoxDamageBullet extends BoxDamageBullet {
-    Java2DFactory F;
+    private Java2DFactory F;
 
     /**
      * creates Java2DBoxDamageBullet
      * @param F {@link Java2DFactory}: for {@link #visualise()}
-     * @param xcoord super: for creating{@link BoxDamageBullet}
+     * @param xCoord super: for creating{@link BoxDamageBullet}
      */
-    public Java2DBoxDamageBullet(Java2DFactory F,int xcoord) {
-        super(xcoord);
+    public Java2DBoxDamageBullet(Java2DFactory F,int xCoord) {
+        super(xCoord);
         this.F = F;
     }
 
@@ -22,7 +26,7 @@ public class Java2DBoxDamageBullet extends BoxDamageBullet {
      */
     public void visualise(){
         Graphics2D g2d = F.getG2d();
-        g2d.drawImage(F.getBoxDamageBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorx()), (int) (this.getMovementComponent().getyCoord() * F.getFactory()), null);
+        g2d.drawImage(F.getBoxDamageBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorX()), (int) (this.getMovementComponent().getyCoord() * F.getFactorY()), null);
 
     }
 }

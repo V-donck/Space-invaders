@@ -4,19 +4,22 @@ package be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents;
  * the PlayerShip must shoot these EnemyShips
  */
 abstract public class EnemyShip extends Ship{
+    /**
+     * level of ship
+     */
     protected int level;
 
     /**
      * creates EnemyShip
-     * @param HP set HP of {@link Ship}
+     * @param hp set HP of {@link Ship}
      * @param x x-coordinate for setting {@link MovementComponent}
      * @param y y-coordinate for setting {@link MovementComponent}
      * @param dx dx for setting {@link MovementComponent}
      * @param dy dy for setting {@link MovementComponent}
      * @param level level of {@link EnemyShip}
      */
-    public EnemyShip(int HP, int x, int y, int dx, int dy, int level) {
-        super(HP);
+    public EnemyShip(int hp, int x, int y, int dx, int dy, int level) {
+        super(hp);
         this.setMovementComponent(x,y,dx,dy);
         this.level = level;
     }

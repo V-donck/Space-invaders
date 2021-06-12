@@ -15,7 +15,7 @@ abstract public class Bullet extends Entity{
     }
 
     /**
-     * returns damage of bullet
+     * returns damage
      * @return damage
      */
     public int getDamage() {
