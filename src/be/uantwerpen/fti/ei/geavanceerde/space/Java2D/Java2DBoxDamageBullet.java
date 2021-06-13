@@ -1,6 +1,6 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.BoxDamageBullet;
 
 import java.awt.*;
 
@@ -27,6 +27,5 @@ public class Java2DBoxDamageBullet extends BoxDamageBullet {
     public void visualise(){
         Graphics2D g2d = F.getG2d();
         g2d.drawImage(F.getBoxDamageBulletIm(), (int) (this.getMovementComponent().getxCoord() * F.getFactorX()), (int) (this.getMovementComponent().getyCoord() * F.getFactorY()), null);
-
     }
 }

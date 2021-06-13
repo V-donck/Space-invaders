@@ -1,7 +1,7 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
 import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.EnemyBullet;
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Bullet;
 
 import java.awt.*;
 

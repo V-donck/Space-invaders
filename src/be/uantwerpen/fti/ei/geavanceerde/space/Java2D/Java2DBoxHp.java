@@ -1,6 +1,6 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.BoxHp;
 
 import java.awt.*;
 
@@ -14,7 +14,7 @@ public class Java2DBoxHp extends BoxHp{
     /**
      * creates Java2DBoxHp
      * @param F {@link Java2DFactory}: for {@link #visualise()}
-     * @param xCoord super: for creating{@link BoxDamageBullet}
+     * @param xCoord super: for creating{@link BoxHp}
      */
     public Java2DBoxHp(Java2DFactory F,int xCoord, int hp) {
         super(xCoord,hp);

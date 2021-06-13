@@ -1,6 +1,8 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.PlayerBullet;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Bullet;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.MovementComponent;
 
 import java.awt.*;
 
@@ -14,11 +16,11 @@ public class Java2DPlayerBullet extends PlayerBullet{
     /**
      * creates new Java2DPlayerBullet
      * @param F {@link Java2DFactory} for {@link #visualise()}
-     * @param damage super: for creating {@link EnemyBullet} and {@link Bullet}
-     * @param x super: for creating {@link EnemyBullet} used for {@link MovementComponent}
-     * @param y super: for creating {@link EnemyBullet} used for {@link MovementComponent}
-     * @param dx super: for creating {@link EnemyBullet} used for {@link MovementComponent}
-     * @param dy super: for creating {@link EnemyBullet} used for {@link MovementComponent}
+     * @param damage super: for creating {@link PlayerBullet} and {@link Bullet}
+     * @param x super: for creating {@link PlayerBullet} used for {@link MovementComponent}
+     * @param y super: for creating {@link PlayerBullet} used for {@link MovementComponent}
+     * @param dx super: for creating {@link PlayerBullet} used for {@link MovementComponent}
+     * @param dy super: for creating {@link PlayerBullet} used for {@link MovementComponent}
      */
     public Java2DPlayerBullet(Java2DFactory F,int damage, int x, int y, int dx, int dy) {
         super(damage,x,y,dx,dy);

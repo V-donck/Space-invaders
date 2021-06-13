@@ -17,5 +17,4 @@ abstract public class Friendly extends  BonusEntity{
      * visualises Friendly
      */
     public abstract void visualise();
-
 }

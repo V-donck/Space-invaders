@@ -1,9 +1,7 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Input;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 /**

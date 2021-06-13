@@ -170,7 +170,6 @@ public class Game {
             EsHitSide = false;
             PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), 0, 0); // PS stands still
             // create new enemyships if all enemys are killed
-            // hier levels inbrengen??
             if(ES.isEmpty()){
                 level++;
                 F.updateLevel(level);
@@ -203,7 +202,7 @@ public class Game {
                             PS.setMovementComponent(0, PS.getMovementComponent().getyCoord(), 0, 0);
                         break;
                     case RIGHT:
-                        if (PS.getMovementComponent().getxCoord() + playerShipWidth < gameWidth)//gamewidth-size ps )
+                        if (PS.getMovementComponent().getxCoord() + playerShipWidth < gameWidth)
                             PS.setMovementComponent(PS.getMovementComponent().getxCoord(), PS.getMovementComponent().getyCoord(), gameWidth / 100, 0); // dx default 100
                         else
                             PS.setMovementComponent(gameWidth - playerShipWidth, PS.getMovementComponent().getyCoord(), 0, 0);

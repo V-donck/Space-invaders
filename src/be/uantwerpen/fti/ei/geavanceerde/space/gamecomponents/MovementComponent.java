@@ -109,4 +109,3 @@ public class MovementComponent {
         this.dx = dx;
     }
 }
-

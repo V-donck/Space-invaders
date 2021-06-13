@@ -1,6 +1,7 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Friendly;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.MovementComponent;
 
 import java.awt.*;
 
@@ -14,7 +15,7 @@ public class Java2DFriendly extends Friendly{
     /**
      * creates Java2DFriendly
      * @param F {@link Java2DFactory}: for {@link #visualise()}
-     * @param xcoord x-coordinate for setting {@link MovementComponent} of {@link Bulletx}
+     * @param xcoord x-coordinate for setting {@link MovementComponent} of {@link Friendly}
      */
     public Java2DFriendly(Java2DFactory F,int xcoord) {
         super(xcoord);
@@ -29,4 +30,3 @@ public class Java2DFriendly extends Friendly{
         g2d.drawImage(F.getFriendlyIm(),(int)(this.getMovementComponent().getxCoord()*F.getFactorX()),(int)(this.getMovementComponent().getyCoord()*F.getFactorY()),null);
     }
 }
-

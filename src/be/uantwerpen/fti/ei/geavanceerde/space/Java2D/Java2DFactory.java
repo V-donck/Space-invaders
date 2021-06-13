@@ -128,7 +128,7 @@ public class Java2DFactory extends AbstractFactory {
         };
         frame.setFocusable(true);
         frame.add(panel);
-        frame.setTitle("space invaders Thijs");
+        frame.setTitle("Space Invaders");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
         frame.setResizable(false);

@@ -1,6 +1,6 @@
 package be.uantwerpen.fti.ei.geavanceerde.space.Java2D;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Bulletx;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class Java2DBulletx extends Bulletx{
      * creates Java2DBulletx
      * @param F {@link Java2DFactory}: for {@link #visualise()}
      * @param number numer of bullets that shoot at the same time: 2 or 3
-     * @param xCoord x-coordinate for setting {@link MovementComponent} of {@link Bulletx}
+     * @param xCoord x-coordinate for setting MovementComponent of {@link Bulletx}
      */
     public Java2DBulletx(Java2DFactory F, int number,int xCoord) {
         super(number,xCoord);

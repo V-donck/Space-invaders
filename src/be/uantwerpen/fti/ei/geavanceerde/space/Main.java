@@ -1,7 +1,8 @@
 package be.uantwerpen.fti.ei.geavanceerde.space;
 
-import be.uantwerpen.fti.ei.geavanceerde.space.Java2D.*;
-import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.*;
+import be.uantwerpen.fti.ei.geavanceerde.space.Java2D.Java2DFactory;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.Game;
+import be.uantwerpen.fti.ei.geavanceerde.space.gamecomponents.AbstractFactory;
 
 /**
  * main class, starts game
